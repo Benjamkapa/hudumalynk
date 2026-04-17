@@ -1,0 +1,1020 @@
+2026-04-09 16:17:15 [-][-][-][error][yii\db\Exception] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:726
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(726): PDO->__construct('mysql:host=127....', 'root', Object(SensitiveParameterValue), NULL)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(641): yii\db\Connection->createPdoInstance()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('migrations')
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%migrations}}', 'schema', true)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\MigrateController.php(218): yii\db\Schema->getTableSchema('{{%migrations}}', true)
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(915): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(190): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#14 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('migrate', Array)
+#20 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('migrate', Array)
+#21 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#22 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#23 {main}
+
+Next yii\db\Exception: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:652
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('migrations')
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%migrations}}', 'schema', true)
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\MigrateController.php(218): yii\db\Schema->getTableSchema('{{%migrations}}', true)
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(915): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(190): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#12 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#14 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('migrate', Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('migrate', Array)
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#20 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => HY000
+    [1] => 1045
+    [2] => Access denied for user 'root'@'localhost' (using password: NO)
+)
+
+2026-04-09 16:17:15 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'ANTIGRAVITY_AGENT' => '1'
+    'ANTIGRAVITY_EDITOR_APP_ROOT' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app'
+    'ANTIGRAVITY_TRAJECTORY_ID' => 'ef850985-3313-442e-b2dc-250a11bb4fa6'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_33920_UYYNTKCNUJLXRONW'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_8228_1592913036' => '1'
+    'EFC_8228_344590478' => '1'
+    'ELECTRON_RUN_AS_NODE' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NO_PROXY' => '*.azureedge.net'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'VSCODE_CODE_CACHE_PATH' => 'C:\\Users\\imkap\\AppData\\Roaming\\Antigravity\\CachedData\\cc6cd32816d350ee4a1ea2b4694b43f749418957'
+    'VSCODE_CRASH_REPORTER_PROCESS_TYPE' => 'extensionHost'
+    'VSCODE_CWD' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity'
+    'VSCODE_ESM_ENTRYPOINT' => 'vs/workbench/api/node/extensionHostProcess'
+    'VSCODE_HANDLES_UNCAUGHT_ERRORS' => 'true'
+    'VSCODE_IPC_HOOK' => '\\\\.\\pipe\\9bb79abb-1.107.0-main-sock'
+    'VSCODE_NLS_CONFIG' => '{\"userLocale\":\"en-us\",\"osLocale\":\"en-us\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"C:\\\\Users\\\\imkap\\\\AppData\\\\Local\\\\Programs\\\\Antigravity\\\\resources\\\\app\\\\out\\\\nls.messages.json\",\"locale\":\"en-us\",\"availableLanguages\":{}}'
+    'VSCODE_PID' => '33920'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1775740635.7856
+    'REQUEST_TIME' => 1775740635
+    'argv' => [
+        0 => 'yii'
+        1 => 'migrate'
+        2 => '--interactive=0'
+    ]
+    'argc' => 3
+]
+2026-04-09 16:19:52 [-][-][-][error][yii\db\Exception] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:726
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(726): PDO->__construct('mysql:host=127....', 'root', Object(SensitiveParameterValue), NULL)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(641): yii\db\Connection->createPdoInstance()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('migrations')
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%migrations}}', 'schema', true)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\MigrateController.php(218): yii\db\Schema->getTableSchema('{{%migrations}}', true)
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(915): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(190): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#14 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('migrate', Array)
+#20 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('migrate', Array)
+#21 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#22 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#23 {main}
+
+Next yii\db\Exception: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:652
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('migrations')
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%migrations}}', 'schema', true)
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\MigrateController.php(218): yii\db\Schema->getTableSchema('{{%migrations}}', true)
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(915): yii\console\controllers\MigrateController->getMigrationHistory(NULL)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\BaseMigrateController.php(190): yii\console\controllers\BaseMigrateController->getNewMigrations()
+#12 [internal function]: yii\console\controllers\BaseMigrateController->actionUp(0)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#14 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('migrate', Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('migrate', Array)
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#20 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#21 {main}
+Additional Information:
+Array
+(
+    [0] => HY000
+    [1] => 1045
+    [2] => Access denied for user 'root'@'localhost' (using password: NO)
+)
+
+2026-04-09 16:19:52 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'ANTIGRAVITY_AGENT' => '1'
+    'ANTIGRAVITY_EDITOR_APP_ROOT' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app'
+    'ANTIGRAVITY_TRAJECTORY_ID' => 'ef850985-3313-442e-b2dc-250a11bb4fa6'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_33920_UYYNTKCNUJLXRONW'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_8228_1592913036' => '1'
+    'EFC_8228_344590478' => '1'
+    'ELECTRON_RUN_AS_NODE' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NO_PROXY' => '*.azureedge.net'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'VSCODE_CODE_CACHE_PATH' => 'C:\\Users\\imkap\\AppData\\Roaming\\Antigravity\\CachedData\\cc6cd32816d350ee4a1ea2b4694b43f749418957'
+    'VSCODE_CRASH_REPORTER_PROCESS_TYPE' => 'extensionHost'
+    'VSCODE_CWD' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity'
+    'VSCODE_ESM_ENTRYPOINT' => 'vs/workbench/api/node/extensionHostProcess'
+    'VSCODE_HANDLES_UNCAUGHT_ERRORS' => 'true'
+    'VSCODE_IPC_HOOK' => '\\\\.\\pipe\\9bb79abb-1.107.0-main-sock'
+    'VSCODE_NLS_CONFIG' => '{\"userLocale\":\"en-us\",\"osLocale\":\"en-us\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"C:\\\\Users\\\\imkap\\\\AppData\\\\Local\\\\Programs\\\\Antigravity\\\\resources\\\\app\\\\out\\\\nls.messages.json\",\"locale\":\"en-us\",\"availableLanguages\":{}}'
+    'VSCODE_PID' => '33920'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1775740792.4793
+    'REQUEST_TIME' => 1775740792
+    'argv' => [
+        0 => 'yii'
+        1 => 'migrate'
+        2 => '--interactive=0'
+    ]
+    'argc' => 3
+]
+2026-04-09 16:19:52 [-][-][-][error][yii\db\Exception] PDOException: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:726
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(726): PDO->__construct('mysql:host=127....', 'root', Object(SensitiveParameterValue), NULL)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(641): yii\db\Connection->createPdoInstance()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('users')
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%users}}', 'schema', false)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(440): yii\db\Schema->getTableSchema('{{%users}}')
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(264): yii\db\ActiveRecord::getTableSchema()
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(236): yii\db\ActiveRecord::filterValidColumnNames(Object(yii\db\Connection), Array)
+#14 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(193): yii\db\ActiveRecord::filterCondition(Array, Array)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\BaseActiveRecord.php(109): yii\db\ActiveRecord::findByCondition(Array)
+#16 C:\PROJECTS\lynk\console\controllers\SetupController.php(34): yii\db\BaseActiveRecord::findOne(Array)
+#17 C:\PROJECTS\lynk\console\controllers\SetupController.php(23): console\controllers\SetupController->seedAdmin()
+#18 [internal function]: console\controllers\SetupController->actionInit()
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#20 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#21 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('init', Array)
+#22 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('init', Array)
+#23 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('setup/init', Array)
+#24 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('setup/init', Array)
+#25 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#26 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#27 {main}
+
+Next yii\db\Exception: SQLSTATE[HY000] [1045] Access denied for user 'root'@'localhost' (using password: NO) in C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php:652
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1074): yii\db\Connection->open()
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Connection.php(1061): yii\db\Connection->getMasterPdo()
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(261): yii\db\Connection->getSlavePdo(true)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(1181): yii\db\Command->prepare(true)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Command.php(417): yii\db\Command->queryInternal('fetchAll', NULL)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(373): yii\db\Command->queryAll()
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\mysql\Schema.php(138): yii\db\mysql\Schema->findColumns(Object(yii\db\TableSchema))
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(763): yii\db\mysql\Schema->loadTableSchema('users')
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\Schema.php(199): yii\db\Schema->getTableMetadata('{{%users}}', 'schema', false)
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(440): yii\db\Schema->getTableSchema('{{%users}}')
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(264): yii\db\ActiveRecord::getTableSchema()
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(236): yii\db\ActiveRecord::filterValidColumnNames(Object(yii\db\Connection), Array)
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\ActiveRecord.php(193): yii\db\ActiveRecord::filterCondition(Array, Array)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\db\BaseActiveRecord.php(109): yii\db\ActiveRecord::findByCondition(Array)
+#14 C:\PROJECTS\lynk\console\controllers\SetupController.php(34): yii\db\BaseActiveRecord::findOne(Array)
+#15 C:\PROJECTS\lynk\console\controllers\SetupController.php(23): console\controllers\SetupController->seedAdmin()
+#16 [internal function]: console\controllers\SetupController->actionInit()
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#19 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('init', Array)
+#20 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('init', Array)
+#21 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('setup/init', Array)
+#22 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('setup/init', Array)
+#23 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#24 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#25 {main}
+Additional Information:
+Array
+(
+    [0] => HY000
+    [1] => 1045
+    [2] => Access denied for user 'root'@'localhost' (using password: NO)
+)
+
+2026-04-09 16:19:52 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'ANTIGRAVITY_AGENT' => '1'
+    'ANTIGRAVITY_EDITOR_APP_ROOT' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app'
+    'ANTIGRAVITY_TRAJECTORY_ID' => 'ef850985-3313-442e-b2dc-250a11bb4fa6'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_33920_UYYNTKCNUJLXRONW'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_8228_1592913036' => '1'
+    'EFC_8228_344590478' => '1'
+    'ELECTRON_RUN_AS_NODE' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NO_PROXY' => '*.azureedge.net'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'VSCODE_CODE_CACHE_PATH' => 'C:\\Users\\imkap\\AppData\\Roaming\\Antigravity\\CachedData\\cc6cd32816d350ee4a1ea2b4694b43f749418957'
+    'VSCODE_CRASH_REPORTER_PROCESS_TYPE' => 'extensionHost'
+    'VSCODE_CWD' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity'
+    'VSCODE_ESM_ENTRYPOINT' => 'vs/workbench/api/node/extensionHostProcess'
+    'VSCODE_HANDLES_UNCAUGHT_ERRORS' => 'true'
+    'VSCODE_IPC_HOOK' => '\\\\.\\pipe\\9bb79abb-1.107.0-main-sock'
+    'VSCODE_NLS_CONFIG' => '{\"userLocale\":\"en-us\",\"osLocale\":\"en-us\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"C:\\\\Users\\\\imkap\\\\AppData\\\\Local\\\\Programs\\\\Antigravity\\\\resources\\\\app\\\\out\\\\nls.messages.json\",\"locale\":\"en-us\",\"availableLanguages\":{}}'
+    'VSCODE_PID' => '33920'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1775740792.5848
+    'REQUEST_TIME' => 1775740792
+    'argv' => [
+        0 => 'yii'
+        1 => 'setup/init'
+    ]
+    'argc' => 2
+]
+2026-04-10 08:25:10 [-][-][-][error][Error] Error: Undefined constant "console\controllers\EMAIL_ADDRESS" in C:\PROJECTS\lynk\console\controllers\SetupController.php:27
+Stack trace:
+#0 [internal function]: console\controllers\SetupController->actionInit()
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('init', Array)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('init', Array)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('setup/init', Array)
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('setup/init', Array)
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#8 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#9 {main}
+2026-04-10 08:25:10 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_31892_HGVRHCPVUVQTKXGW'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_38576_1592913036' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PROMPT' => '$P$G'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'TERM_PROGRAM' => 'vscode'
+    'TERM_PROGRAM_VERSION' => '1.107.0'
+    'LANG' => 'en_US.UTF-8'
+    'COLORTERM' => 'truecolor'
+    'ANTIGRAVITY_CLI_ALIAS' => 'agy'
+    'GIT_ASKPASS' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app\\extensions\\git\\dist\\askpass.sh'
+    'VSCODE_GIT_ASKPASS_NODE' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\Antigravity.exe'
+    'VSCODE_GIT_ASKPASS_EXTRA_ARGS' => ''
+    'VSCODE_GIT_ASKPASS_MAIN' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app\\extensions\\git\\dist\\askpass-main.js'
+    'VSCODE_GIT_IPC_HANDLE' => '\\\\.\\pipe\\vscode-git-cb0524c926-sock'
+    'VSCODE_NONCE' => 'd7c9b78f-07fb-4c97-86cc-d52a43e5fa01'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1775798710.2177
+    'REQUEST_TIME' => 1775798710
+    'argv' => [
+        0 => 'yii'
+        1 => 'setup/init'
+    ]
+    'argc' => 2
+    'APP_NAME' => 'HudumaLynk'
+    'APP_ENV' => 'development'
+    'APP_DEBUG' => 'true'
+    'APP_KEY' => 'hudumalynk-local-dev-secret-key-1'
+    'DB_HOST' => '127.0.0.1'
+    'DB_PORT' => '3306'
+    'DB_NAME' => 'hudumalynk'
+    'DB_USER' => 'root'
+    'DB_PASS' => 'fortjesus'
+    'FRONTEND_URL' => 'http://localhost:8080'
+    'BACKEND_URL' => 'http://localhost:8081'
+    'MPESA_ENV' => 'sandbox'
+    'MPESA_CONSUMER_KEY' => 'your_consumer_key'
+    'MPESA_CONSUMER_SECRET' => 'your_consumer_secret'
+    'MPESA_SHORTCODE' => '174379'
+    'MPESA_PASSKEY' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+    'MPESA_CALLBACK_URL' => 'https://yourdomain.ngrok-free.app/order/mpesa-callback'
+    'MPESA_ACCOUNT_REF' => 'HudumaLynk'
+    'KES_TO_USD_RATE' => '0.0077'
+    'CURRENCY_API_KEY' => ''
+    'SMS_PROVIDER' => 'africastalking'
+    'AFRICASTALKING_USERNAME' => 'sandbox'
+    'AFRICASTALKING_API_KEY' => 'your_at_api_key'
+    'AFRICASTALKING_SENDER_ID' => 'HudumaLynk'
+    'MAIL_HOST' => 'smtp.gmail.com'
+    'MAIL_PORT' => '587'
+    'MAIL_USERNAME' => 'noreply@hudumalynk.com'
+    'MAIL_PASSWORD' => 'your_smtp_password'
+    'MAIL_ENCRYPTION' => 'tls'
+    'MAIL_FROM_NAME' => 'HudumaLynk'
+    'MAIL_FROM_ADDRESS' => 'noreply@hudumalynk.com'
+    'FLUTTERWAVE_PUBLIC_KEY' => 'FLWPUBK_TEST-xxxx'
+    'FLUTTERWAVE_SECRET_KEY' => 'FLWSECK_TEST-xxxx'
+    'FLUTTERWAVE_REDIRECT_URL' => 'http://localhost:8080/order/payment-callback'
+    'UPLOAD_PATH' => 'frontend/web/uploads'
+    'UPLOAD_MAX_SIZE' => '5242880'
+]
+2026-04-16 10:56:17 [-][-][-][error][yii\di\NotInstantiableException] ReflectionException: Class "console\controllers\RbacController" does not exist in C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php:536
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php(536): ReflectionClass->__construct('console\\control...')
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php(406): yii\di\Container->getDependencies('console\\control...')
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php(180): yii\di\Container->build('console\\control...', Array, Array)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\BaseYii.php(380): yii\di\Container->get('console\\control...', Array, Array)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(612): yii\BaseYii::createObject(Array, Array)
+#5 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(192): yii\base\Module->createController('')
+#6 [internal function]: yii\console\controllers\HelpController->{closure:yii\console\controllers\HelpController::getCommands():191}('rbac')
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(191): array_filter(Array, Object(Closure))
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(213): yii\console\controllers\HelpController->getCommands()
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(319): yii\console\controllers\HelpController->getCommandDescriptions()
+#10 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(73): yii\console\controllers\HelpController->getDefaultHelp()
+#11 [internal function]: yii\console\controllers\HelpController->actionIndex(NULL)
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#14 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('help', Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('help', Array)
+#18 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#19 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#20 {main}
+
+Next yii\di\NotInstantiableException: Failed to instantiate component or class "console\controllers\RbacController". in C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php:538
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php(406): yii\di\Container->getDependencies('console\\control...')
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\di\Container.php(180): yii\di\Container->build('console\\control...', Array, Array)
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\BaseYii.php(380): yii\di\Container->get('console\\control...', Array, Array)
+#3 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(612): yii\BaseYii::createObject(Array, Array)
+#4 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(192): yii\base\Module->createController('')
+#5 [internal function]: yii\console\controllers\HelpController->{closure:yii\console\controllers\HelpController::getCommands():191}('rbac')
+#6 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(191): array_filter(Array, Object(Closure))
+#7 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(213): yii\console\controllers\HelpController->getCommands()
+#8 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(319): yii\console\controllers\HelpController->getCommandDescriptions()
+#9 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\controllers\HelpController.php(73): yii\console\controllers\HelpController->getDefaultHelp()
+#10 [internal function]: yii\console\controllers\HelpController->actionIndex(NULL)
+#11 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\InlineAction.php(66): call_user_func_array(Array, Array)
+#12 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Controller.php(197): yii\base\InlineAction->runWithParams(Array)
+#13 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Controller.php(186): yii\base\Controller->runAction('', Array)
+#14 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php(554): yii\console\Controller->runAction('', Array)
+#15 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('help', Array)
+#16 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('help', Array)
+#17 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#18 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#19 {main}
+2026-04-16 10:56:15 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'ANTIGRAVITY_AGENT' => '1'
+    'ANTIGRAVITY_EDITOR_APP_ROOT' => 'c:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\resources\\app'
+    'ANTIGRAVITY_TRAJECTORY_ID' => 'bfede2ca-44e4-4ef4-9105-13f8939d3da4'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_16284_NZQFMHNLZLTXACBN'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_26560_1592913036' => '1'
+    'EFC_26560_344590478' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Users\\imkap\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'VSCODE_CODE_CACHE_PATH' => 'C:\\Users\\imkap\\AppData\\Roaming\\Antigravity\\CachedData\\62335c71d47037adf0a8de54e250bb8ea6016b15'
+    'VSCODE_CWD' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity'
+    'VSCODE_IPC_HOOK' => '\\\\.\\pipe\\9bb79abb-1.107.0-main-sock'
+    'VSCODE_NLS_CONFIG' => '{\"userLocale\":\"en-us\",\"osLocale\":\"en-us\",\"resolvedLanguage\":\"en\",\"defaultMessagesFile\":\"C:\\\\Users\\\\imkap\\\\AppData\\\\Local\\\\Programs\\\\Antigravity\\\\resources\\\\app\\\\out\\\\nls.messages.json\",\"locale\":\"en-us\",\"availableLanguages\":{}}'
+    'VSCODE_PID' => '16284'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1776326175.1239
+    'REQUEST_TIME' => 1776326175
+    'argv' => [
+        0 => 'yii'
+        1 => 'help'
+    ]
+    'argc' => 2
+    'APP_NAME' => 'HudumaLynk'
+    'APP_ENV' => 'development'
+    'APP_DEBUG' => 'true'
+    'APP_KEY' => 'hudumalynk-local-dev-secret-key-1'
+    'ADMIN_FIRST_NAME' => 'Okombe'
+    'ADMIN_LAST_NAME' => 'Mabenjo'
+    'ADMIN_EMAIL' => 'admin@hudumalynk.co.ke'
+    'ADMIN_PHONE' => '+254790590653'
+    'ADMIN_PASSWORD' => 'Admin@123'
+    'DB_HOST' => '127.0.0.1'
+    'DB_PORT' => '3306'
+    'DB_NAME' => 'hudumalynk'
+    'DB_USER' => 'root'
+    'DB_PASS' => 'fortjesus'
+    'FRONTEND_URL' => 'http://localhost:8080'
+    'BACKEND_URL' => 'http://localhost:8081'
+    'MPESA_ENV' => 'sandbox'
+    'MPESA_CONSUMER_KEY' => 'your_consumer_key'
+    'MPESA_CONSUMER_SECRET' => 'your_consumer_secret'
+    'MPESA_SHORTCODE' => '174379'
+    'MPESA_PASSKEY' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+    'MPESA_CALLBACK_URL' => 'https://yourdomain.ngrok-free.app/order/mpesa-callback'
+    'MPESA_ACCOUNT_REF' => 'HudumaLynk'
+    'KES_TO_USD_RATE' => '0.0077'
+    'CURRENCY_API_KEY' => ''
+    'SMS_PROVIDER' => 'africastalking'
+    'AFRICASTALKING_USERNAME' => 'sandbox'
+    'AFRICASTALKING_API_KEY' => 'your_at_api_key'
+    'AFRICASTALKING_SENDER_ID' => 'HudumaLynk'
+    'MAIL_HOST' => 'smtp.gmail.com'
+    'MAIL_PORT' => '587'
+    'MAIL_USERNAME' => 'noreply@hudumalynk.com'
+    'MAIL_PASSWORD' => 'your_smtp_password'
+    'MAIL_ENCRYPTION' => 'tls'
+    'MAIL_FROM_NAME' => 'HudumaLynk'
+    'MAIL_FROM_ADDRESS' => 'noreply@hudumalynk.com'
+    'FLUTTERWAVE_PUBLIC_KEY' => 'FLWPUBK_TEST-xxxx'
+    'FLUTTERWAVE_SECRET_KEY' => 'FLWSECK_TEST-xxxx'
+    'FLUTTERWAVE_REDIRECT_URL' => 'http://localhost:8080/order/payment-callback'
+    'UPLOAD_PATH' => 'frontend/web/uploads'
+    'UPLOAD_MAX_SIZE' => '5242880'
+]
+2026-04-16 19:55:27 [-][-][-][error][yii\console\UnknownCommandException] yii\base\InvalidRouteException: Unable to resolve the request "console/controllers/SetupController". in C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php:563
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('console/control...', Array)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('console/control...', Array)
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#3 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#4 {main}
+
+Next yii\console\UnknownCommandException: Unknown command "console/controllers/SetupController". in C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php:186
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('console/control...', Array)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#2 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#3 {main}
+2026-04-16 19:55:27 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_22448_LVCCGYGAZYCRIUQX'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_26560_1592913036' => '1'
+    'EFC_26560_344590478' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand;c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli;C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin;c:\\Users\\imkap\\.vscode\\extensions\\vscjava.vscode-java-debug-0.58.5\\bundled\\scripts\\noConfigScripts'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'ANTIGRAVITY_CLI_ALIAS' => 'agy'
+    'COLORTERM' => 'truecolor'
+    'GIT_ASKPASS' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\vscode.git\\askpass\\493597c785d4c5cb\\askpass.sh'
+    'LANG' => 'en_US.UTF-8'
+    'PROMPT' => '$P$G'
+    'TERM_PROGRAM' => 'vscode'
+    'TERM_PROGRAM_VERSION' => '1.115.0'
+    'BLACKBOX_ACTIVE' => 'true'
+    'CLAUDE_CODE_SSE_PORT' => '34377'
+    'VSCODE_JDWP_ADAPTER_ENDPOINTS' => 'c:\\Users\\imkap\\.vscode\\extensions\\vscjava.vscode-java-debug-0.58.5\\.noConfigDebugAdapterEndpoints\\endpoint-80e22b74ae44a9a8.txt'
+    'VSCODE_JAVA_EXEC' => 'C:\\Program Files\\Java\\jdk-17\\bin\\java'
+    'VSCODE_GIT_ASKPASS_NODE' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe'
+    'VSCODE_GIT_ASKPASS_EXTRA_ARGS' => ''
+    'VSCODE_GIT_ASKPASS_MAIN' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\vscode.git\\askpass\\493597c785d4c5cb\\askpass-main.js'
+    'VSCODE_GIT_IPC_HANDLE' => '\\\\.\\pipe\\vscode-git-c8e4ac089a-sock'
+    'PYTHONSTARTUP' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\workspaceStorage\\98ccc21b0e346101c732e8beea798a41\\ms-python.python\\pythonrc.py'
+    'PYTHON_BASIC_REPL' => '1'
+    'VSCODE_NONCE' => 'e6c38379-6ce1-4f8b-92bf-eed2155a194b'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1776358527.1757
+    'REQUEST_TIME' => 1776358527
+    'argv' => [
+        0 => 'yii'
+        1 => 'console/controllers/SetupController'
+        2 => '--action=create-demo-vendors'
+    ]
+    'argc' => 3
+    'APP_NAME' => 'HudumaLynk'
+    'APP_ENV' => 'development'
+    'APP_DEBUG' => 'true'
+    'APP_KEY' => 'hudumalynk-local-dev-secret-key-1'
+    'ADMIN_FIRST_NAME' => 'Okombe'
+    'ADMIN_LAST_NAME' => 'Mabenjo'
+    'ADMIN_EMAIL' => 'admin@hudumalynk.co.ke'
+    'ADMIN_PHONE' => '+254790590653'
+    'ADMIN_PASSWORD' => 'Admin@123'
+    'DB_HOST' => '127.0.0.1'
+    'DB_PORT' => '3306'
+    'DB_NAME' => 'hudumalynk'
+    'DB_USER' => 'root'
+    'DB_PASS' => 'fortjesus'
+    'FRONTEND_URL' => 'http://localhost:8080'
+    'BACKEND_URL' => 'http://localhost:8081'
+    'MPESA_ENV' => 'sandbox'
+    'MPESA_CONSUMER_KEY' => 'your_consumer_key'
+    'MPESA_CONSUMER_SECRET' => 'your_consumer_secret'
+    'MPESA_SHORTCODE' => '174379'
+    'MPESA_PASSKEY' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+    'MPESA_CALLBACK_URL' => 'https://yourdomain.ngrok-free.app/order/mpesa-callback'
+    'MPESA_ACCOUNT_REF' => 'HudumaLynk'
+    'KES_TO_USD_RATE' => '0.0077'
+    'CURRENCY_API_KEY' => ''
+    'SMS_PROVIDER' => 'africastalking'
+    'AFRICASTALKING_USERNAME' => 'sandbox'
+    'AFRICASTALKING_API_KEY' => 'your_at_api_key'
+    'AFRICASTALKING_SENDER_ID' => 'HudumaLynk'
+    'MAIL_HOST' => 'smtp.gmail.com'
+    'MAIL_PORT' => '587'
+    'MAIL_USERNAME' => 'noreply@hudumalynk.com'
+    'MAIL_PASSWORD' => 'your_smtp_password'
+    'MAIL_ENCRYPTION' => 'tls'
+    'MAIL_FROM_NAME' => 'HudumaLynk'
+    'MAIL_FROM_ADDRESS' => 'noreply@hudumalynk.com'
+    'FLUTTERWAVE_PUBLIC_KEY' => 'FLWPUBK_TEST-xxxx'
+    'FLUTTERWAVE_SECRET_KEY' => 'FLWSECK_TEST-xxxx'
+    'FLUTTERWAVE_REDIRECT_URL' => 'http://localhost:8080/order/payment-callback'
+    'UPLOAD_PATH' => 'frontend/web/uploads'
+    'UPLOAD_MAX_SIZE' => '5242880'
+]
+2026-04-16 20:22:05 [-][-][-][error][yii\console\UnknownCommandException] yii\base\InvalidRouteException: Unable to resolve the request "map-data/populate-coords". in C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Module.php:563
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(183): yii\base\Module->runAction('map-data/popula...', Array)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('map-data/popula...', Array)
+#2 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#3 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#4 {main}
+
+Next yii\console\UnknownCommandException: Unknown command "map-data/populate-coords". in C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php:186
+Stack trace:
+#0 C:\PROJECTS\lynk\vendor\yiisoft\yii2\console\Application.php(150): yii\console\Application->runAction('map-data/popula...', Array)
+#1 C:\PROJECTS\lynk\vendor\yiisoft\yii2\base\Application.php(391): yii\console\Application->handleRequest(Object(yii\console\Request))
+#2 C:\PROJECTS\lynk\yii(27): yii\base\Application->run()
+#3 {main}
+2026-04-16 20:22:05 [-][-][-][info][application] $_GET = []
+
+$_POST = []
+
+$_FILES = []
+
+$_COOKIE = []
+
+$_SERVER = [
+    'ALLUSERSPROFILE' => 'C:\\ProgramData'
+    'ANDROID_HOME' => 'C:\\Android'
+    'APPDATA' => 'C:\\Users\\imkap\\AppData\\Roaming'
+    'ChocolateyInstall' => 'C:\\ProgramData\\chocolatey'
+    'CHROME_CRASHPAD_PIPE_NAME' => '\\\\.\\pipe\\crashpad_22448_LVCCGYGAZYCRIUQX'
+    'CommonProgramFiles' => 'C:\\Program Files\\Common Files'
+    'CommonProgramFiles(x86)' => 'C:\\Program Files (x86)\\Common Files'
+    'CommonProgramW6432' => 'C:\\Program Files\\Common Files'
+    'COMPUTERNAME' => 'IMKAPA'
+    'ComSpec' => 'C:\\WINDOWS\\system32\\cmd.exe'
+    'DriverData' => 'C:\\Windows\\System32\\Drivers\\DriverData'
+    'EFC_26560_1592913036' => '1'
+    'EFC_26560_344590478' => '1'
+    'HOMEDRIVE' => 'C:'
+    'HOMEPATH' => '\\Users\\imkap'
+    'JAVA_HOME' => 'C:\\Program Files\\Java\\jdk-17'
+    'LOCALAPPDATA' => 'C:\\Users\\imkap\\AppData\\Local'
+    'LOGONSERVER' => '\\\\IMKAPA'
+    'NUMBER_OF_PROCESSORS' => '14'
+    'OneDrive' => 'C:\\Users\\imkap\\OneDrive'
+    'OneDriveConsumer' => 'C:\\Users\\imkap\\OneDrive'
+    'OS' => 'Windows_NT'
+    'PATH' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\debugCommand;c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\github.copilot-chat\\copilotCli;C:\\Program Files (x86)\\VMware\\VMware Workstation\\bin\\;%PATH%;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\??????\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Users\\??????\\AppData\\Roaming\\npm;C:\\Users\\??????\\AppData\\Roaming\\Composer\\vendor\\bin;C:\\Users\\??????\\AppData\\Local\\Programs\\Ollama;C:\\Program Files\\heroku\\bin;C:\\Users\\בנימין\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Visual Studio Code;C:\\Users\\בנימין\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Android\\cmdline-tools\\latest\\bin;C:\\Android\\platform-tools;C:\\Users\\בנימין\\AppData\\Local\\pnpm;C:\\Program Files\\MySQL\\MySQL Shell 8.0\\bin\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\;C:\\Users\\??????\\AppData\\Local\\Programs\\Python\\Python313\\;C:\\Users\\בנימין\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\?????;C:\\Android\\emulator;C:\\Android\\platform-tools;C:\\Android\\cmdline-tools\\bin;C:\\Program Files\\Git\\bin;C:\\Program Files\\nodejs;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Windows\\System32;C:\\Program Files\\Java\\jdk-17\\bin;C:\\Users\\בנימין\\Downloads\\Software\\ffmpeg-8.0.1-essentials_build\\bin;C:\\Users\\בנימין\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\Scripts;C:\\php74;C:\\composer;C:\\Users\\imkap\\Downloads\\Software\\nmap-7.98-setup.exe;C:\\Users\\imkap\\Downloads\\ngrok-v3-stable-windows-amd64;C:\\Program Files\\Redis\\;C:\\Users\\imkap\\Downloads\\Software\\apache-maven-3.9.14-bin\\apache-maven-3.9.14\\bin;C:\\Users\\imkap\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\Nmap;C:\\Users\\imkap\\AppData\\Local\\Programs\\cursor\\resources\\app\\bin;C:\\Users\\imkap\\AppData\\Local\\Programs\\Antigravity\\bin;c:\\Users\\imkap\\.vscode\\extensions\\vscjava.vscode-java-debug-0.58.5\\bundled\\scripts\\noConfigScripts'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'PROCESSOR_ARCHITECTURE' => 'AMD64'
+    'PROCESSOR_IDENTIFIER' => 'Intel64 Family 6 Model 170 Stepping 4, GenuineIntel'
+    'PROCESSOR_LEVEL' => '6'
+    'PROCESSOR_REVISION' => 'aa04'
+    'ProgramData' => 'C:\\ProgramData'
+    'ProgramFiles' => 'C:\\Program Files'
+    'ProgramFiles(x86)' => 'C:\\Program Files (x86)'
+    'ProgramW6432' => 'C:\\Program Files'
+    'PSModulePath' => 'C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules'
+    'PT7HOME' => 'C:\\Program Files\\Cisco Packet Tracer 7.3.0'
+    'PUBLIC' => 'C:\\Users\\Public'
+    'QT_DEVICE_PIXEL_RATIO' => 'auto'
+    'SESSIONNAME' => 'Console'
+    'SystemDrive' => 'C:'
+    'SystemRoot' => 'C:\\WINDOWS'
+    'TEMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'TMP' => 'C:\\Users\\imkap\\AppData\\Local\\Temp'
+    'USERDOMAIN' => 'IMKAPA'
+    'USERDOMAIN_ROAMINGPROFILE' => 'IMKAPA'
+    'USERNAME' => 'Benjamkapa'
+    'USERPROFILE' => 'C:\\Users\\imkap'
+    'VBOX_MSI_INSTALL_PATH' => 'C:\\Program Files\\Oracle\\VirtualBox\\'
+    'windir' => 'C:\\WINDOWS'
+    'ZES_ENABLE_SYSMAN' => '1'
+    'ANTIGRAVITY_CLI_ALIAS' => 'agy'
+    'COLORTERM' => 'truecolor'
+    'GIT_ASKPASS' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\vscode.git\\askpass\\493597c785d4c5cb\\askpass.sh'
+    'LANG' => 'en_US.UTF-8'
+    'PROMPT' => '$P$G'
+    'TERM_PROGRAM' => 'vscode'
+    'TERM_PROGRAM_VERSION' => '1.115.0'
+    'BLACKBOX_ACTIVE' => 'true'
+    'CLAUDE_CODE_SSE_PORT' => '34377'
+    'VSCODE_JDWP_ADAPTER_ENDPOINTS' => 'c:\\Users\\imkap\\.vscode\\extensions\\vscjava.vscode-java-debug-0.58.5\\.noConfigDebugAdapterEndpoints\\endpoint-80e22b74ae44a9a8.txt'
+    'VSCODE_JAVA_EXEC' => 'C:\\Program Files\\Java\\jdk-17\\bin\\java'
+    'VSCODE_GIT_ASKPASS_NODE' => 'C:\\Users\\imkap\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe'
+    'VSCODE_GIT_ASKPASS_EXTRA_ARGS' => ''
+    'VSCODE_GIT_ASKPASS_MAIN' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\globalStorage\\vscode.git\\askpass\\493597c785d4c5cb\\askpass-main.js'
+    'VSCODE_GIT_IPC_HANDLE' => '\\\\.\\pipe\\vscode-git-c8e4ac089a-sock'
+    'PYTHONSTARTUP' => 'c:\\Users\\imkap\\AppData\\Roaming\\Code\\User\\workspaceStorage\\98ccc21b0e346101c732e8beea798a41\\ms-python.python\\pythonrc.py'
+    'PYTHON_BASIC_REPL' => '1'
+    'VSCODE_NONCE' => '48375b89-7dec-4a25-8dc6-3ad8d5fb3d42'
+    'PHP_SELF' => 'yii'
+    'SCRIPT_NAME' => 'yii'
+    'SCRIPT_FILENAME' => 'yii'
+    'PATH_TRANSLATED' => 'yii'
+    'DOCUMENT_ROOT' => ''
+    'REQUEST_TIME_FLOAT' => 1776360125.6895
+    'REQUEST_TIME' => 1776360125
+    'argv' => [
+        0 => 'yii'
+        1 => 'map-data/populate-coords'
+    ]
+    'argc' => 2
+    'APP_NAME' => 'HudumaLynk'
+    'APP_ENV' => 'development'
+    'APP_DEBUG' => 'true'
+    'APP_KEY' => 'hudumalynk-local-dev-secret-key-1'
+    'ADMIN_FIRST_NAME' => 'Okombe'
+    'ADMIN_LAST_NAME' => 'Mabenjo'
+    'ADMIN_EMAIL' => 'admin@hudumalynk.co.ke'
+    'ADMIN_PHONE' => '+254790590653'
+    'ADMIN_PASSWORD' => 'Admin@123'
+    'DB_HOST' => '127.0.0.1'
+    'DB_PORT' => '3306'
+    'DB_NAME' => 'hudumalynk'
+    'DB_USER' => 'root'
+    'DB_PASS' => 'fortjesus'
+    'FRONTEND_URL' => 'http://localhost:8080'
+    'BACKEND_URL' => 'http://localhost:8081'
+    'MPESA_ENV' => 'sandbox'
+    'MPESA_CONSUMER_KEY' => 'your_consumer_key'
+    'MPESA_CONSUMER_SECRET' => 'your_consumer_secret'
+    'MPESA_SHORTCODE' => '174379'
+    'MPESA_PASSKEY' => 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+    'MPESA_CALLBACK_URL' => 'https://yourdomain.ngrok-free.app/order/mpesa-callback'
+    'MPESA_ACCOUNT_REF' => 'HudumaLynk'
+    'KES_TO_USD_RATE' => '0.0077'
+    'CURRENCY_API_KEY' => ''
+    'SMS_PROVIDER' => 'africastalking'
+    'AFRICASTALKING_USERNAME' => 'sandbox'
+    'AFRICASTALKING_API_KEY' => 'your_at_api_key'
+    'AFRICASTALKING_SENDER_ID' => 'HudumaLynk'
+    'MAIL_HOST' => 'smtp.gmail.com'
+    'MAIL_PORT' => '587'
+    'MAIL_USERNAME' => 'noreply@hudumalynk.com'
+    'MAIL_PASSWORD' => 'your_smtp_password'
+    'MAIL_ENCRYPTION' => 'tls'
+    'MAIL_FROM_NAME' => 'HudumaLynk'
+    'MAIL_FROM_ADDRESS' => 'noreply@hudumalynk.com'
+    'FLUTTERWAVE_PUBLIC_KEY' => 'FLWPUBK_TEST-xxxx'
+    'FLUTTERWAVE_SECRET_KEY' => 'FLWSECK_TEST-xxxx'
+    'FLUTTERWAVE_REDIRECT_URL' => 'http://localhost:8080/order/payment-callback'
+    'UPLOAD_PATH' => 'frontend/web/uploads'
+    'UPLOAD_MAX_SIZE' => '5242880'
+]
