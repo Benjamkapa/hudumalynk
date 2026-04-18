@@ -32,33 +32,62 @@ use yii\widgets\ActiveForm;
 
       <?php $form = ActiveForm::begin(); ?>
 
-      <!-- Star Rating Input (simplified CSS-based radio) -->
+      <!-- Star Rating -->
       <div class="hl-form-group text-center mb-4">
         <label class="hl-label" style="font-size:1rem;">How would you rate this provider?</label>
-        
-        <div class="rating-input mt-2" style="display:flex;flex-direction:row-reverse;justify-content:center;gap:0.5rem;font-size:2.5rem;">
-          <input type="radio" name="Review[rating]" id="star5" value="5" style="display:none;" <?= $review->rating == 5 ? 'checked' : '' ?> required>
-          <label for="star5" style="cursor:pointer;color:var(--border);transition:color 0.2s;" class="star-label">★</label>
-          
-          <input type="radio" name="Review[rating]" id="star4" value="4" style="display:none;" <?= $review->rating == 4 ? 'checked' : '' ?>>
-          <label for="star4" style="cursor:pointer;color:var(--border);transition:color 0.2s;" class="star-label">★</label>
-          
-          <input type="radio" name="Review[rating]" id="star3" value="3" style="display:none;" <?= $review->rating == 3 ? 'checked' : '' ?>>
-          <label for="star3" style="cursor:pointer;color:var(--border);transition:color 0.2s;" class="star-label">★</label>
-          
-          <input type="radio" name="Review[rating]" id="star2" value="2" style="display:none;" <?= $review->rating == 2 ? 'checked' : '' ?>>
-          <label for="star2" style="cursor:pointer;color:var(--border);transition:color 0.2s;" class="star-label">★</label>
-          
-          <input type="radio" name="Review[rating]" id="star1" value="1" style="display:none;" <?= $review->rating == 1 ? 'checked' : '' ?>>
-          <label for="star1" style="cursor:pointer;color:var(--border);transition:color 0.2s;" class="star-label">★</label>
+
+        <div class="rating-input mt-2">
+          <?php for ($i = 5; $i >= 1; $i--): ?>
+            <input
+              type="radio"
+              name="Review[rating]"
+              id="star<?= $i ?>"
+              value="<?= $i ?>"
+              <?= ($review->rating == $i) ? 'checked' : '' ?>
+              <?= ($i === 5) ? 'required' : '' ?>
+            >
+            <label for="star<?= $i ?>" title="<?= $i ?> star<?= $i > 1 ? 's' : '' ?>">★</label>
+          <?php endfor; ?>
         </div>
+
+        <!-- Live hint -->
+        <div id="starHint" style="margin-top:0.4rem;font-size:0.8rem;color:var(--text-muted);min-height:1.2em;">
+          <?php
+            $hints = [1 => 'Poor', 2 => 'Fair', 3 => 'Good', 4 => 'Very Good', 5 => 'Excellent!'];
+            echo $review->rating ? $hints[$review->rating] : 'Tap a star to rate';
+          ?>
+        </div>
+
         <?= Html::error($review, 'rating', ['class' => 'help-block text-danger mt-1']) ?>
       </div>
 
-      <!-- Review styling -->
       <style>
-      .rating-input input:checked ~ label { color: #F59E0B; }
-      .rating-input label:hover, .rating-input label:hover ~ label { color: #FCD34D; }
+      .rating-input {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 2.5rem;
+        line-height: 1;
+      }
+      .rating-input input[type="radio"] {
+        display: none;
+      }
+      .rating-input label {
+        cursor: pointer;
+        color: #d1d5db;
+        transition: color 0.15s ease, transform 0.15s ease;
+      }
+      /* Fill selected star + all siblings after it (= visually to its left, due to row-reverse) */
+      .rating-input input:checked ~ label {
+        color: #F59E0B;
+      }
+      /* Hover fill */
+      .rating-input label:hover,
+      .rating-input label:hover ~ label {
+        color: #FCD34D;
+        transform: scale(1.15);
+      }
       </style>
 
       <div class="hl-form-group">
@@ -73,7 +102,7 @@ use yii\widgets\ActiveForm;
 
       <div class="mt-4 text-center">
         <?= Html::submitButton('<i class="bi bi-star-fill"></i> Submit Review', ['class' => 'btn-hl-primary w-100', 'style' => 'justify-content:center;padding:0.85rem;']) ?>
-        <a href="<?= Url::to(['/orders/' . $order->id]) ?>" class="btn btn-link mt-2" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;">Cancel</a>
+        <a href="<?= Url::to(['/order/view', 'id' => $order->id]) ?>" class="btn btn-link mt-2" style="color:var(--text-muted);font-size:0.85rem;text-decoration:none;">Cancel</a>
       </div>
 
       <?php ActiveForm::end(); ?>
@@ -82,3 +111,16 @@ use yii\widgets\ActiveForm;
 
 </div>
 </div>
+
+<script>
+(function () {
+    var hints  = { 1: 'Poor', 2: 'Fair', 3: 'Good', 4: 'Very Good', 5: 'Excellent!' };
+    var hintEl = document.getElementById('starHint');
+    var inputs = document.querySelectorAll('.rating-input input[type="radio"]');
+    inputs.forEach(function (input) {
+        input.addEventListener('change', function () {
+            if (hintEl) hintEl.textContent = hints[this.value] || '';
+        });
+    });
+})();
+</script>

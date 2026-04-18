@@ -9,14 +9,203 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'Nairobi Map';
+$this->title = 'Map';
 
-/* Leaflet + MarkerCluster from CDN */
+/* Leaflet + MarkerCluster from CDN — CSS anywhere, JS at POS_END in correct order */
 $this->registerCssFile('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
-$this->registerJsFile('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js', ['position' => \yii\web\View::POS_HEAD]);
-$this->registerJsFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js');
 $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css');
 $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css');
+
+$this->registerJsFile('https://unpkg.com/leaflet@1.9.4/dist/leaflet.js',
+    ['position' => \yii\web\View::POS_END]);
+$this->registerJsFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js',
+    ['position' => \yii\web\View::POS_END, 'depends' => []]);
+
+/* ── Pre-encode PHP data for JS ── */
+$vendorsJson = json_encode(array_map(function ($v) {
+    return [
+        'id'            => (int)$v['id'],
+        'business_name' => $v['business_name'],
+        'lat'           => $v['lat'] !== null ? (float)$v['lat'] : null,
+        'lng'           => $v['lng'] !== null ? (float)$v['lng'] : null,
+        'category'      => $v['category'],
+        'county'        => $v['county'],
+        'orders'        => (int)$v['orders'],
+        'rating'        => round((float)($v['rating'] ?? 0), 1),
+    ];
+}, $vendors));
+
+$catColorMap = [];
+$colors = ['#6C5CE7','#00B894','#3B82F6','#E17055','#FDCB6E','#A29BFE','#F59E0B'];
+foreach (array_values($categories) as $ci => $cat) {
+    $catColorMap[$cat] = $colors[$ci % count($colors)];
+}
+$categoryColorsJson = json_encode($catColorMap);
+$vendorViewBase     = Url::to(['/admin/vendor-view', 'id' => '']);
+
+/* ── Register the entire map JS at POS_END so L is guaranteed loaded ── */
+$this->registerJs(<<<JS
+(function () {
+
+    var vendors        = {$vendorsJson};
+    var categoryColors = {$categoryColorsJson};
+    var vendorViewBase = '{$vendorViewBase}';
+
+    function getColor(cat) { return categoryColors[cat] || '#9898B8'; }
+
+    /* ── Leaflet map ── */
+    var isDark    = document.documentElement.getAttribute('data-hl-t') === 'dark';
+    var lightTile = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    var darkTile  = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+    var tileAttr  = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/">CARTO</a>';
+
+    var map = L.map('hlNairobiMap', {
+        center: [-1.2921, 36.8219],
+        zoom: 12,
+        zoomControl: false,
+        attributionControl: true
+    });
+
+    var tileLayer = L.tileLayer(isDark ? darkTile : lightTile, { attribution: tileAttr, maxZoom: 19 }).addTo(map);
+
+    /* Custom zoom buttons */
+    document.getElementById('mapZoomIn').addEventListener('click',  function () { map.zoomIn(); });
+    document.getElementById('mapZoomOut').addEventListener('click', function () { map.zoomOut(); });
+
+    /* Sync tile layer on theme toggle */
+    var themeBtn = document.getElementById('hlThemeBtn');
+    if (themeBtn) {
+        themeBtn.addEventListener('click', function () {
+            setTimeout(function () {
+                var t = document.documentElement.getAttribute('data-hl-t');
+                map.removeLayer(tileLayer);
+                tileLayer = L.tileLayer(t === 'dark' ? darkTile : lightTile, { attribution: tileAttr, maxZoom: 19 }).addTo(map);
+            }, 80);
+        });
+    }
+
+    /* ── Custom SVG pin marker ── */
+    function makeIcon(color) {
+        var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="34" viewBox="0 0 28 34">'
+            + '<ellipse cx="14" cy="31" rx="5" ry="2" fill="rgba(0,0,0,0.18)"/>'
+            + '<path d="M14 0C7.37 0 2 5.37 2 12c0 8.16 12 21 12 21s12-12.84 12-21C26 5.37 20.63 0 14 0z" fill="' + color + '"/>'
+            + '<circle cx="14" cy="12" r="5.5" fill="rgba(255,255,255,0.88)"/>'
+            + '</svg>';
+        return L.divIcon({ html: svg, className: '', iconSize: [28,34], iconAnchor: [14,34], popupAnchor: [0,-36] });
+    }
+
+    /* ── Marker cluster group ── */
+    var clusterGroup = L.markerClusterGroup({
+        maxClusterRadius: 50,
+        iconCreateFunction: function (cluster) {
+            var cnt = cluster.getChildCount();
+            return L.divIcon({
+                html: '<div style="width:36px;height:36px;border-radius:50%;background:#6C5CE7;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(108,92,231,.35);">' + cnt + '</div>',
+                className: '', iconSize: [36,36], iconAnchor: [18,18]
+            });
+        }
+    });
+
+    /* ── Build markers ── */
+    var markers = {};
+
+    vendors.forEach(function (v) {
+        if (v.lat === null || v.lng === null || isNaN(v.lat) || isNaN(v.lng)) return;
+
+        var lat      = v.lat;
+        var lng      = v.lng;
+        var color    = getColor(v.category);
+        var initials = v.business_name.substring(0, 2).toUpperCase();
+
+        var popup = '<div class="hlm-popup">'
+            + '<div class="hlm-popup-head">'
+            + '<div class="hlm-popup-av" style="background:' + color + '">' + initials + '</div>'
+            + '<div><div class="hlm-popup-name">' + v.business_name + '</div>'
+            + '<div class="hlm-popup-cat">' + v.category + '</div></div>'
+            + '</div>'
+            + '<div class="hlm-popup-row"><span class="hlm-popup-key">County</span><span class="hlm-popup-val">' + v.county + '</span></div>'
+            + '<div class="hlm-popup-row"><span class="hlm-popup-key">Orders</span><span class="hlm-popup-val">' + v.orders + '</span></div>'
+            + '<div class="hlm-popup-row"><span class="hlm-popup-key">Rating</span><span class="hlm-popup-val">★ ' + v.rating + '</span></div>'
+            + '<a class="hlm-popup-link" href="' + vendorViewBase + v.id + '">View vendor profile →</a>'
+            + '</div>';
+
+        var marker = L.marker([lat, lng], { icon: makeIcon(color) }).bindPopup(popup, { maxWidth: 230 });
+        markers[v.id] = marker;
+        clusterGroup.addLayer(marker);
+    });
+
+    map.addLayer(clusterGroup);
+
+    /* ── Sidebar: click to fly ── */
+    function flyToVendor(vendorId) {
+        var v = vendors.find(function (x) { return x.id === vendorId; });
+        if (!v || v.lat === null) return;
+        map.flyTo([v.lat, v.lng], 15, { duration: 1 });
+        if (markers[vendorId]) {
+            setTimeout(function () { markers[vendorId].openPopup(); }, 900);
+        }
+        document.querySelectorAll('.map-vitem').forEach(function (el) { el.classList.remove('highlighted'); });
+        var el = document.querySelector('.map-vitem[data-vendor-id="' + vendorId + '"]');
+        if (el) el.classList.add('highlighted');
+    }
+
+    document.querySelectorAll('.map-vitem').forEach(function (item) {
+        item.addEventListener('click', function () { flyToVendor(parseInt(item.dataset.vendorId)); });
+    });
+
+    /* ── Filters ── */
+    var activeStatus = 'all';
+
+    function applyFilters() {
+        var search   = document.getElementById('mapVendorSearch').value.toLowerCase().trim();
+        var category = document.getElementById('mapCategoryFilter').value;
+        var county   = document.getElementById('mapCountyFilter').value;
+        var visCount = 0;
+
+        document.querySelectorAll('.map-vitem').forEach(function (item) {
+            var nameMatch   = !search   || item.dataset.name.includes(search);
+            var catMatch    = !category || item.dataset.category === category;
+            var countyMatch = !county   || item.dataset.county   === county;
+            var statusMatch = activeStatus === 'all'
+                || (activeStatus === 'active' && item.dataset.status !== 'inactive')
+                || (activeStatus === 'top'    && item.dataset.status === 'top');
+            var show = nameMatch && catMatch && countyMatch && statusMatch;
+            item.style.display = show ? '' : 'none';
+            if (show) visCount++;
+        });
+
+        document.getElementById('mapListCount').textContent = visCount;
+
+        clusterGroup.clearLayers();
+        vendors.forEach(function (v) {
+            if (!markers[v.id]) return;
+            var nameMatch   = !search   || v.business_name.toLowerCase().includes(search);
+            var catMatch    = !category || v.category === category;
+            var countyMatch = !county   || v.county   === county;
+            var statusMatch = activeStatus === 'all'
+                || (activeStatus === 'active')
+                || (activeStatus === 'top' && v.rating >= 4);
+            if (nameMatch && catMatch && countyMatch && statusMatch) {
+                clusterGroup.addLayer(markers[v.id]);
+            }
+        });
+    }
+
+    document.getElementById('mapVendorSearch').addEventListener('input',   applyFilters);
+    document.getElementById('mapCategoryFilter').addEventListener('change', applyFilters);
+    document.getElementById('mapCountyFilter').addEventListener('change',   applyFilters);
+
+    document.querySelectorAll('.map-filter-pill').forEach(function (pill) {
+        pill.addEventListener('click', function () {
+            document.querySelectorAll('.map-filter-pill').forEach(function (p) { p.classList.remove('active'); });
+            pill.classList.add('active');
+            activeStatus = pill.dataset.status;
+            applyFilters();
+        });
+    });
+
+})();
+JS, \yii\web\View::POS_END);
 ?>
 
 <style>
@@ -80,7 +269,7 @@ $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/Marke
 .map-zoom-btn:hover { background: var(--bg3); }
 .map-zoom-btn:first-child { border-bottom: 1px solid var(--border); }
 
-/* Popup styles (injected into Leaflet popup) */
+/* Popup styles */
 .hlm-popup { font-family: 'Plus Jakarta Sans', sans-serif; min-width: 190px; }
 .hlm-popup-head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
 .hlm-popup-av   { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10.5px; font-weight: 800; color: #fff; flex-shrink: 0; }
@@ -159,8 +348,8 @@ $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/Marke
                 $avColors = ['#6C5CE7','#00B894','#3B82F6','#FDCB6E','#E17055','#A29BFE'];
                 foreach ($vendors as $vi => $v):
                     $initials = strtoupper(substr($v['business_name'], 0, 2));
-                    $bg = $avColors[$vi % count($avColors)];
-                    $rating = number_format($v['rating'] ?? 0, 1);
+                    $bg       = $avColors[$vi % count($avColors)];
+                    $rating   = number_format($v['rating'] ?? 0, 1);
                 ?>
                 <div class="map-vitem"
                      data-vendor-id="<?= (int)$v['id'] ?>"
@@ -189,7 +378,7 @@ $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/Marke
     <div class="map-container-wrap">
         <div id="hlNairobiMap"></div>
 
-        <!-- Overlay: top-left chips -->
+        <!-- Overlay: top-left -->
         <div class="map-overlay-tl">
             <div class="map-stat-chip">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 1 8 8c0 5.25-8 12-8 12S4 15.25 4 10a8 8 0 0 1 8-8z"/></svg>
@@ -207,7 +396,7 @@ $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/Marke
             <div class="map-legend-card">
                 <div class="map-legend-title">Marker key</div>
                 <?php
-                $legendCats = array_slice($categories, 0, 5);
+                $legendCats   = array_slice($categories, 0, 5);
                 $legendColors = ['#6C5CE7','#00B894','#3B82F6','#E17055','#FDCB6E'];
                 foreach ($legendCats as $li => $lcat):
                 ?>
@@ -222,193 +411,4 @@ $this->registerCssFile('https://unpkg.com/leaflet.markercluster@1.5.3/dist/Marke
             </div>
         </div>
     </div>
-</div>
-
-<!-- ── Map JS ── -->
-<script>
-(function () {
-    /* ── Vendor data from PHP ── */
-    var vendors = <?= json_encode(array_map(function ($v) {
-        return [
-            'id'            => (int)$v['id'],
-            'business_name' => $v['business_name'],
-            'lat'           => $v['lat'] ?? null,
-            'lng'           => $v['lng'] ?? null,
-            'category'      => $v['category'],
-            'county'        => $v['county'],
-            'orders'        => (int)$v['orders'],
-            'rating'        => round((float)($v['rating'] ?? 0), 1),
-        ];
-    }, $vendors)) ?>;
-
-    var categoryColors = {
-        <?php foreach ($categories as $ci => $cat):
-            $colors = ['#6C5CE7','#00B894','#3B82F6','#E17055','#FDCB6E','#A29BFE','#F59E0B'];
-        ?>
-        '<?= addslashes($cat) ?>': '<?= $colors[$ci % count($colors)] ?>',
-        <?php endforeach; ?>
-    };
-
-    function getColor(cat) { return categoryColors[cat] || '#9898B8'; }
-
-    /* ── Leaflet map ── */
-    var isDark = document.documentElement.getAttribute('data-hl-t') === 'dark';
-
-    var lightTile = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    var darkTile  = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-    var tileAttr  = '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/">CARTO</a>';
-
-    var map = L.map('hlNairobiMap', {
-        center: [-1.2921, 36.8219],
-        zoom: 12,
-        zoomControl: false,
-        attributionControl: true
-    });
-
-    var tileLayer = L.tileLayer(isDark ? darkTile : lightTile, { attribution: tileAttr, maxZoom: 19 }).addTo(map);
-
-    /* Custom zoom buttons */
-    document.getElementById('mapZoomIn').addEventListener('click',  function () { map.zoomIn(); });
-    document.getElementById('mapZoomOut').addEventListener('click', function () { map.zoomOut(); });
-
-    /* Sync tile layer on theme toggle */
-    var themeBtn = document.getElementById('hlThemeBtn');
-    if (themeBtn) {
-        themeBtn.addEventListener('click', function () {
-            setTimeout(function () {
-                var t = document.documentElement.getAttribute('data-hl-t');
-                map.removeLayer(tileLayer);
-                tileLayer = L.tileLayer(t === 'dark' ? darkTile : lightTile, { attribution: tileAttr, maxZoom: 19 }).addTo(map);
-            }, 80);
-        });
-    }
-
-    /* ── Custom circular SVG marker ── */
-    function makeIcon(color) {
-        var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="28" height="34" viewBox="0 0 28 34">'
-            + '<ellipse cx="14" cy="31" rx="5" ry="2" fill="rgba(0,0,0,0.18)"/>'
-            + '<path d="M14 0C7.37 0 2 5.37 2 12c0 8.16 12 21 12 21s12-12.84 12-21C26 5.37 20.63 0 14 0z" fill="' + color + '"/>'
-            + '<circle cx="14" cy="12" r="5.5" fill="rgba(255,255,255,0.88)"/>'
-            + '</svg>';
-        return L.divIcon({
-            html: svg,
-            className: '',
-            iconSize: [28, 34],
-            iconAnchor: [14, 34],
-            popupAnchor: [0, -36]
-        });
-    }
-
-    /* ── Marker cluster group ── */
-    var clusterGroup = L.markerClusterGroup({
-        maxClusterRadius: 50,
-        iconCreateFunction: function (cluster) {
-            var cnt = cluster.getChildCount();
-            return L.divIcon({
-                html: '<div style="width:36px;height:36px;border-radius:50%;background:#6C5CE7;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;border:2.5px solid rgba(255,255,255,.7);box-shadow:0 2px 8px rgba(108,92,231,.35);">' + cnt + '</div>',
-                className: '', iconSize: [36, 36], iconAnchor: [18, 18]
-            });
-        }
-    });
-
-    /* ── Build markers ── */
-    var markers = {};
-
-    vendors.forEach(function (v) {
-        if (!v.lat || !v.lng) return;
-        var color   = getColor(v.category);
-        var initials = v.business_name.substring(0, 2).toUpperCase();
-
-        var popup = '<div class="hlm-popup">'
-            + '<div class="hlm-popup-head">'
-            + '<div class="hlm-popup-av" style="background:' + color + '">' + initials + '</div>'
-            + '<div><div class="hlm-popup-name">' + v.business_name + '</div>'
-            + '<div class="hlm-popup-cat">' + v.category + '</div></div>'
-            + '</div>'
-            + '<div class="hlm-popup-row"><span class="hlm-popup-key">County</span><span class="hlm-popup-val">' + v.county + '</span></div>'
-            + '<div class="hlm-popup-row"><span class="hlm-popup-key">Orders</span><span class="hlm-popup-val">' + v.orders + '</span></div>'
-            + '<div class="hlm-popup-row"><span class="hlm-popup-key">Rating</span><span class="hlm-popup-val">★ ' + v.rating + '</span></div>'
-            + '<a class="hlm-popup-link" href="<?= Url::to(['/admin/vendors/view', 'id' => '']) ?>' + v.id + '">View vendor profile →</a>'
-            + '</div>';
-
-        var marker = L.marker([v.lat, v.lng], { icon: makeIcon(color) }).bindPopup(popup, { maxWidth: 230 });
-        markers[v.id] = marker;
-        clusterGroup.addLayer(marker);
-    });
-
-    map.addLayer(clusterGroup);
-
-    /* ── Sidebar list interaction ── */
-    function flyToVendor(vendorId) {
-        var v = vendors.find(function (x) { return x.id === vendorId; });
-        if (!v || !v.lat) return;
-        map.flyTo([v.lat, v.lng], 15, { duration: 1 });
-        if (markers[vendorId]) {
-            setTimeout(function () { markers[vendorId].openPopup(); }, 900);
-        }
-        document.querySelectorAll('.map-vitem').forEach(function (el) { el.classList.remove('highlighted'); });
-        var el = document.querySelector('.map-vitem[data-vendor-id="' + vendorId + '"]');
-        if (el) el.classList.add('highlighted');
-    }
-
-    document.querySelectorAll('.map-vitem').forEach(function (item) {
-        item.addEventListener('click', function () {
-            flyToVendor(parseInt(item.dataset.vendorId));
-        });
-    });
-
-    /* ── Filters ── */
-    var activeStatus = 'all';
-
-    function applyFilters() {
-        var search   = document.getElementById('mapVendorSearch').value.toLowerCase().trim();
-        var category = document.getElementById('mapCategoryFilter').value;
-        var county   = document.getElementById('mapCountyFilter').value;
-        var visCount = 0;
-
-        document.querySelectorAll('.map-vitem').forEach(function (item) {
-            var nameMatch   = !search   || item.dataset.name.includes(search);
-            var catMatch    = !category || item.dataset.category === category;
-            var countyMatch = !county   || item.dataset.county   === county;
-            var statusMatch = activeStatus === 'all'
-                || (activeStatus === 'active' && item.dataset.status !== 'inactive')
-                || (activeStatus === 'top'    && item.dataset.status === 'top');
-
-            var show = nameMatch && catMatch && countyMatch && statusMatch;
-            item.style.display = show ? '' : 'none';
-            if (show) visCount++;
-        });
-
-        document.getElementById('mapListCount').textContent = visCount;
-
-        /* Filter map markers */
-        clusterGroup.clearLayers();
-        vendors.forEach(function (v) {
-            if (!markers[v.id]) return;
-            var nameMatch   = !search   || v.business_name.toLowerCase().includes(search);
-            var catMatch    = !category || v.category === category;
-            var countyMatch = !county   || v.county   === county;
-            var statusMatch = activeStatus === 'all'
-                || (activeStatus === 'active')
-                || (activeStatus === 'top' && v.rating >= 4);
-
-            if (nameMatch && catMatch && countyMatch && statusMatch) {
-                clusterGroup.addLayer(markers[v.id]);
-            }
-        });
-    }
-
-    document.getElementById('mapVendorSearch').addEventListener('input',   applyFilters);
-    document.getElementById('mapCategoryFilter').addEventListener('change', applyFilters);
-    document.getElementById('mapCountyFilter').addEventListener('change',   applyFilters);
-
-    document.querySelectorAll('.map-filter-pill').forEach(function (pill) {
-        pill.addEventListener('click', function () {
-            document.querySelectorAll('.map-filter-pill').forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
-            activeStatus = pill.dataset.status;
-            applyFilters();
-        });
-    });
-})();
-</script>
+</div>y

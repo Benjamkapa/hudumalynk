@@ -73,7 +73,7 @@ $colors   = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         <tr>
             <td>
                 <div style="display:flex;align-items:center;gap:9px;">
-                    <div style="width:34px;height:34px;border-radius:var(--r-md);background:<?= $p->logo ? "url('/uploads/logos/{$p->logo}')" : $bg ?>;background-size:cover;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;"><?= $p->logo ? '' : Html::encode($init) ?></div>
+                    <div style="width:34px;height:34px;border-radius:var(--r-md);background:<?= $p->logo ? "url('" . rtrim(Yii::$app->params['frontendUrl'], '/') . "/uploads/logos/{$p->logo}')" : $bg ?>;background-size:cover;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;"><?= $p->logo ? '' : Html::encode($init) ?></div>
                     <div>
                         <div style="font-size:12.5px;font-weight:700;color:var(--text1);">
                             <?= Html::encode($p->business_name) ?>

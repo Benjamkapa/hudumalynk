@@ -263,9 +263,9 @@ function loadProviderModal(id) {
               <i class="bi bi-geo-alt" style="color:var(--hl-blue);"></i> <?= Html::encode($provider->city) ?>
             </p>
 
-            <button class="btn-hl-outline w-100 btn-sm offcanvas-link" onclick="openOc('/provider/view/<?= $provider->id ?>', '<?= Html::encode($provider->business_name) ?>')" type="button">
+            <!-- <button class="btn-hl-outline w-100 btn-sm offcanvas-link" onclick="openOc('/provider/view/<?= $provider->id ?>', '<?= Html::encode($provider->business_name) ?>')" type="button">
               <i class="bi bi-eye"></i> View Full Profile
-            </button>
+            </button> -->
           </div>
         </div>
 

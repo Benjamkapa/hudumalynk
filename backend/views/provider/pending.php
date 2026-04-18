@@ -1,20 +1,26 @@
 <?php
 /** @var yii\web\View $this */
+
 use yii\helpers\Html;
-use yii\helpers\Url;
+
+$this->title = 'Account Pending Approval';
 ?>
-<div class="hl-card text-center" style="padding:4rem 2rem;max-width:500px;margin:2rem auto;">
-  <i class="bi bi-hourglass-split" style="font-size:3.5rem;color:var(--warning);margin-bottom:1rem;display:block;"></i>
-  <h3 style="margin-bottom:0.5rem;">Account Under Review</h3>
-  <p style="color:var(--text-secondary);margin-bottom:1.5rem;">
-    Your provider account is currently pending approval by our team.
-    We review all applications within 24 hours to ensure quality on HudumaLynk.
-  </p>
-  <div class="hl-alert hl-alert-info d-inline-flex" style="text-align:left;font-size:0.85rem;">
-    <i class="bi bi-info-circle"></i>
-    <span>You'll receive an SMS and email notification as soon as your account is approved.</span>
-  </div>
-  <div style="margin-top:2rem;">
-    <a href="<?= Yii::$app->params['frontendUrl'] ?>" class="btn-admin-outline">Return to Home</a>
-  </div>
+
+<style>
+.pending-wrap { max-width: 500px; margin: 60px auto; text-align: center; }
+.pending-icon { width: 80px; height: 80px; margin: 0 auto 24px; background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #fff; }
+.pending-title { font-size: 24px; font-weight: 800; color: var(--text1); margin-bottom: 12px; }
+.pending-text { font-size: 14px; color: var(--text3); line-height: 1.5; margin-bottom: 24px; }
+.pending-btn { display: inline-block; background: var(--acc); color: #fff; border: none; border-radius: var(--r-md); padding: 12px 24px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; }
+.pending-btn:hover { background: var(--acc2); }
+</style>
+
+<div class="pending-wrap">
+    <div class="pending-icon">⏳</div>
+    <h1 class="pending-title">Account Under Review</h1>
+    <p class="pending-text">
+        Thank you for registering with HudumaLynk! Your provider account is currently under review by our team.
+        We'll notify you via email once your account is approved and you can start publishing listings and receiving orders.
+    </p>
+    <a href="<?= \yii\helpers\Url::to(['/site/logout']) ?>" class="pending-btn">Logout</a>
 </div>

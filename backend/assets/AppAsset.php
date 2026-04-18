@@ -15,7 +15,6 @@ class AppAsset extends AssetBundle
     ];
 
     public $js = [
-        'js/admin.js',
     ];
 
     public $depends = [

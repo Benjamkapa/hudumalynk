@@ -34,7 +34,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         <h1 class="hl-pg-title">Users</h1>
         <div class="hl-pg-sub">Manage all registered platform users</div>
     </div>
-    <a href="<?= Url::to(['/admin/user-edit', 'id' => 0]) ?>" class="hl-btn-p">
+    <a href="<?= Url::to(['/admin/user-edit', 'id' => 0]) ?>" class="hl-btn-p offcanvas-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Add User
     </a>
@@ -100,8 +100,8 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
             <td style="font-size:11.5px;color:var(--text3);"><?= date('d M Y', strtotime($user->created_at ?? 'now')) ?></td>
             <td>
                 <div style="display:flex;gap:5px;">
-                    <a href="<?= Url::to(['/admin/user-view', 'id' => $user->id]) ?>" class="hl-btn-g" style="padding:5px 9px;font-size:11px;">View</a>
-                    <a href="<?= Url::to(['/admin/user-edit', 'id' => $user->id]) ?>" class="hl-btn-g" style="padding:5px 9px;font-size:11px;">Edit</a>
+                    <a href="<?= Url::to(['/admin/user-view', 'id' => $user->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:5px 9px;font-size:11px;">View</a>
+                    <a href="<?= Url::to(['/admin/user-edit', 'id' => $user->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:5px 9px;font-size:11px;">Edit</a>
                     <?php if ($user->id !== Yii::$app->user->id): ?>
                     <form class="action-form" method="post" action="<?= Url::to(['/admin/user-suspend', 'id' => $user->id]) ?>" onsubmit="return confirm('<?= $isActive ? 'Suspend' : 'Re-activate' ?> this user?')">
                         <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>

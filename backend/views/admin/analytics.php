@@ -371,6 +371,7 @@ function anKes(float $v): string {
 </div>
 
 <!-- ── ApexCharts ── -->
+<?php $this->registerJsFile('https://cdn.jsdelivr.net/npm/apexcharts'); ?>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     var isDark      = document.documentElement.getAttribute('data-hl-t') === 'dark';

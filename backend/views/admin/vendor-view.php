@@ -48,7 +48,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         <?php endif; ?>
     </div>
     <div style="display:flex;gap:8px;">
-        <a href="<?= Url::to(['/admin/vendor-edit', 'id' => $vendor->id]) ?>" class="hl-btn-g">
+        <a href="<?= Url::to(['/admin/vendor-edit', 'id' => $vendor->id]) ?>" class="hl-btn-g offcanvas-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit Profile
         </a>
@@ -65,7 +65,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
     <!-- Sidebar -->
     <div class="vv-sidebar">
         <div class="vv-profile">
-            <?php $logoSrc = $vendor->logo ? "/uploads/logos/{$vendor->logo}" : null; ?>
+            <?php $logoSrc = $vendor->logo ? rtrim(Yii::$app->params['frontendUrl'], '/') . "/uploads/logos/{$vendor->logo}" : null; ?>
             <div class="vv-avatar" style="background:<?= $logoSrc ? "url('{$logoSrc}')" : '#6C5CE7' ?>;<?= $logoSrc ? 'background-size:cover;' : '' ?>">
                 <?= $logoSrc ? '' : Html::encode(strtoupper(substr($vendor->business_name, 0, 2))) ?>
             </div>
@@ -146,7 +146,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
                     <td style="font-weight:700;font-size:12px;">KES <?= number_format($o->total_amount) ?></td>
                     <td><span class="hl-badge <?= $stCls ?>"><?= ucfirst(str_replace('_', ' ', $o->status)) ?></span></td>
                     <td style="font-size:11px;color:var(--text3);"><?= date('d M Y', strtotime($o->created_at)) ?></td>
-                    <td><a href="<?= Url::to(['/admin/order-view', 'id' => $o->id]) ?>" class="hl-btn-g" style="padding:4px 9px;font-size:11px;">View</a></td>
+                    <td><a href="<?= Url::to(['/admin/order-view', 'id' => $o->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:4px 9px;font-size:11px;">View</a></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>

@@ -27,7 +27,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         <h1 class="hl-pg-title">Categories</h1>
         <div class="hl-pg-sub">Manage listing categories and subcategories</div>
     </div>
-    <a href="<?= Url::to(['/admin/category-create']) ?>" class="hl-btn-p">
+    <a href="<?= Url::to(['/admin/category-create']) ?>" class="hl-btn-p offcanvas-link">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         New Category
     </a>
@@ -78,7 +78,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
             </td>
             <td>
                 <div style="display:flex;gap:5px;">
-                    <a href="<?= Url::to(['/admin/category-edit', 'id' => $cat->id]) ?>" class="hl-btn-g" style="padding:5px 9px;font-size:11px;">Edit</a>
+                    <a href="<?= Url::to(['/admin/category-edit', 'id' => $cat->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:5px 9px;font-size:11px;">Edit</a>
                     <form class="action-form" method="post" action="<?= Url::to(['/admin/category-delete', 'id' => $cat->id]) ?>" onsubmit="return confirm('Delete category &quot;<?= Html::encode($cat->name) ?>&quot;? This cannot be undone.')">
                         <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
                         <button type="submit" class="hl-btn-g" style="padding:5px 9px;font-size:11px;color:var(--rose);border-color:var(--rose-pale);">Delete</button>
@@ -88,7 +88,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         </tr>
         <?php endforeach; ?>
         <?php if ($dataProvider->totalCount === 0): ?>
-        <tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3);font-size:12px;">No categories yet — <a href="<?= Url::to(['/admin/category-create']) ?>" style="color:var(--acc);">create the first one</a></td></tr>
+        <tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text3);font-size:12px;">No categories yet — <a href="<?= Url::to(['/admin/category-create']) ?>" class="offcanvas-link" style="color:var(--acc);">create the first one</a></td></tr>
         <?php endif; ?>
         </tbody>
     </table>

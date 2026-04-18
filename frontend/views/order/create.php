@@ -38,8 +38,11 @@ use common\models\Order;
                 style="width:80px;height:60px;object-fit:cover;border-radius:var(--radius);" alt="">
               <div>
                 <div style="font-weight:700;"><?= Html::encode($listing->name) ?></div>
-                <div style="font-size:0.82rem;color:var(--text-muted);">
-                  <?= Html::encode($listing->provider->business_name ?? '') ?>
+                <div style="font-size:0.82rem;color:var(--text-muted);display:flex;align-items:center;gap:0.5rem;">
+                  <span>by <?= Html::encode($listing->provider->business_name ?? '') ?></span>
+                  <!-- <button class="btn btn-link btn-sm p-0 text-decoration-none" onclick="loadProviderModal(<?= $listing->provider->id ?>)" style="font-size:0.75rem;color:var(--hl-blue);">
+                    <i class="bi bi-eye"></i> View Full Profile
+                  </button> -->
                 </div>
                 <span class="hl-listing-badge badge-<?= $listing->type ?>"
                   style="position:relative;top:0;left:0;margin-top:0.4rem;display:inline-flex;"><?= ucfirst($listing->type) ?></span>
@@ -153,3 +156,71 @@ use common\models\Order;
 
   </div>
 </div>
+
+<!-- Provider Modal -->
+<div class="modal fade" id="providerModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content hl-card" style="border:none;box-shadow:var(--shadow-lg);border-radius:var(--radius-xl);">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title" id="modalTitle">Loading...</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body p-4" id="modalBody">
+        <div class="text-center py-4" id="modalLoading">
+          <div class="spinner-border text-primary" role="status"></div>
+          <p class="mt-2 text-muted">Loading provider details...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function loadProviderModal(id) {
+  const modal = new bootstrap.Modal(document.getElementById('providerModal'));
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+  const loading = document.getElementById('modalLoading');
+  
+  modalTitle.textContent = 'Loading...';
+  loading.style.display = 'block';
+  modalBody.innerHTML = '<div class="text-center py-4" id="modalLoading"><div class="spinner-border text-primary" role="status"></div><p class="mt-2 text-muted">Loading provider details...</p></div>';
+  
+  fetch('/api/provider/' + id)
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        modalTitle.textContent = data.provider.business_name;
+        modalBody.innerHTML = `
+          <div style="text-align:center;">
+            ${data.provider.logo ? 
+              `<img src="/uploads/${data.provider.logo}" style="width:80px;height:80px;border-radius:50%;object-fit:cover;margin:0 auto 1rem;display:block;border:3px solid var(--hl-blue-light);">` : 
+              `<div style="width:80px;height:80px;margin:0 auto 1rem;background:var(--hl-gradient);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;">${data.provider.business_name.substring(0,2).toUpperCase()}</div>`
+            }
+            <h5 style="margin:0 0 0.5rem;">${data.provider.business_name}</h5>
+            ${data.provider.is_verified ? '<span class="hl-verified-badge mb-2"><i class="bi bi-patch-check-fill"></i> Verified Provider</span>' : ''}
+            ${data.provider.rating > 0 ? `<div style="margin:1rem 0;"><span class="hl-stars">${'★'.repeat(Math.round(data.provider.rating))}</span> <strong>${data.provider.rating.toFixed(1)}</strong> (${data.provider.total_reviews} reviews)</div>` : ''}
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">
+              <div><i class="bi bi-geo-alt" style="color:var(--hl-blue);"></i> ${data.provider.city || data.provider.address || 'Location not specified'}</div>
+              ${data.provider.phone ? `<div style="margin-top:0.5rem;"><i class="bi bi-telephone" style="color:var(--hl-green);"></i> ${data.provider.phone}</div>` : ''}
+            </div>
+            ${data.provider.description ? `<p style="margin:1.25rem 0 1rem;color:var(--text-secondary);line-height:1.7;">${data.provider.description.replace(/\\n/g, '<br>')}</p>` : ''}
+            <div class="d-flex gap-2 mt-3">
+              <a href="/provider/${data.provider.id}/${data.provider.slug}" class="btn-hl-primary btn-sm flex-fill" target="_blank">View Full Profile</a>
+              <button class="btn-hl-ghost btn-sm flex-fill" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        `;
+      } else {
+        modalTitle.textContent = 'Error';
+        modalBody.innerHTML = '<p class="text-danger text-center">Could not load provider details. <button class="btn btn-link p-0" onclick="loadProviderModal(' + id + ')">Retry</button></p>';
+      }
+    })
+    .catch(() => {
+      modalTitle.textContent = 'Error';
+      modalBody.innerHTML = '<p class="text-danger text-center">Network error. Please check your connection.</p>';
+    });
+  
+  modal.show();
+}
+</script>

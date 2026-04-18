@@ -101,7 +101,7 @@ use yii\widgets\ActiveForm;
     <div class="hl-auth-footer">
       Already have an account? <a href="<?= Url::to(['/login']) ?>">Sign in</a>
       &nbsp;|&nbsp;
-      <a href="<?= Yii::$app->params['backendUrl'] . '/login' ?>">Provider or admin portal</a>
+      <a href="<?= Yii::$app->params['backendUrl'] . '/login' ?>">Provider portal</a>
     </div>
   </div>
 </div>

@@ -122,7 +122,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
 <div class="vendors-grid">
 <?php foreach ($dataProvider->models as $i => $vendor):
     $init    = strtoupper(substr($vendor->business_name, 0, 2));
-    $bg      = $vendor->logo ? "url('/uploads/logos/{$vendor->logo}')" : $colors[$i % count($colors)];
+    $bg      = $vendor->logo ? "url('" . rtrim(Yii::$app->params['frontendUrl'], '/') . "/uploads/logos/{$vendor->logo}')" : $colors[$i % count($colors)];
     $hasBg   = (bool)$vendor->logo;
     $cat     = $vendor->activeListings && $vendor->activeListings[0]->category ? $vendor->activeListings[0]->category->name : 'No category';
     $ordCnt  = count($vendor->orders);
@@ -144,10 +144,10 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
         <div class="vc-stat"><div class="vc-stat-lbl">Rating</div><div class="vc-stat-val"><?= $vendor->rating ? number_format($vendor->rating, 1) : '—' ?></div></div>
     </div>
     <div class="vc-actions">
-        <a href="<?= Url::to(['/admin/vendor-view', 'id' => $vendor->id]) ?>" class="vc-btn primary" title="View profile">
+        <a href="<?= Url::to(['/admin/vendor-view', 'id' => $vendor->id]) ?>" class="vc-btn primary offcanvas-link" title="View profile">
             <?= $svgEye ?> View
         </a>
-        <a href="<?= Url::to(['/admin/vendor-edit', 'id' => $vendor->id]) ?>" class="vc-btn" title="Edit">
+        <a href="<?= Url::to(['/admin/vendor-edit', 'id' => $vendor->id]) ?>" class="vc-btn offcanvas-link" title="Edit">
             <?= $svgEdit ?> Edit
         </a>
         <form method="post" action="<?= Url::to(['/admin/vendor-suspend', 'id' => $vendor->id]) ?>" style="display:contents;" onsubmit="return confirm('<?= $isSusp ? 'Re-activate' : 'Suspend' ?> this vendor?')">

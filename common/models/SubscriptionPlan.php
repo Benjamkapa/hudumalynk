@@ -76,6 +76,45 @@ class SubscriptionPlan extends ActiveRecord
         return 'USD ' . number_format($this->price_kes * $rate, 2);
     }
 
+    /**
+     * Backward-compatible computed label used by legacy views.
+     */
+    public function getBillingCycle(): string
+    {
+        $days = (int) $this->duration_days;
+
+        if ($days >= 365 && $days % 365 === 0) {
+            return 'yearly';
+        }
+
+        if ($days >= 30 && $days % 30 === 0) {
+            return $days === 30 ? 'monthly' : 'every ' . ($days / 30) . ' months';
+        }
+
+        if ($days === 7) {
+            return 'weekly';
+        }
+
+        return 'every ' . $days . ' days';
+    }
+
+    /**
+     * Legacy alias used by older subscription views.
+     */
+    public function getMaxListings(): int
+    {
+        if ($this->hasUnlimitedProducts() || $this->hasUnlimitedServices()) {
+            return 999;
+        }
+
+        return (int) $this->max_products + (int) $this->max_services;
+    }
+
+    public function getDurationLabel(): string
+    {
+        return ucfirst($this->billing_cycle);
+    }
+
     public function isUnlimited(): bool
     {
         return $this->hasUnlimitedProducts() || $this->hasUnlimitedServices();

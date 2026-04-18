@@ -85,8 +85,8 @@ class Listing extends ActiveRecord
 
             ['location',      'string', 'max' => 255],
             ['primary_image', 'string', 'max' => 255],
-            ['imageFile',     'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp', 'maxSize' => 5*1024*1024],
-            [['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp', 'maxFiles' => 5],
+            ['imageFile',     'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp, GIF, gif, JPG, JPEG, WEBP', 'maxSize' => 5*1024*1024],
+            [['imageFiles'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp, GIF, gif, JPG, JPEG, WEBP', 'maxFiles' => 5],
             ['is_featured',   'boolean'],
             ['views',         'integer', 'min' => 0],
             ['provider_id',   'integer'],

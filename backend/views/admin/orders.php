@@ -100,7 +100,7 @@ $statusColors = [
             <td><span class="hl-badge <?= $payBadge ?>"><?= ucfirst($order->payment_status ?? 'unpaid') ?></span></td>
             <td><span class="ord-st <?= Html::encode($stClass) ?>"><?= ucfirst(str_replace('_', ' ', $status)) ?></span></td>
             <td style="font-size:11px;color:var(--text3);"><?= date('d M Y · H:i', strtotime($order->created_at ?? 'now')) ?></td>
-<a href="<?= Url::to(['/admin/orders', 'id' => $order->id]) ?>" class="hl-btn-g" style="padding:5px 9px;font-size:11px;">View</a>
+            <td><a href="<?= Url::to(['/admin/order-view', 'id' => $order->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:5px 9px;font-size:11px;">View</a></td>
         </tr>
         <?php endforeach; ?>
         <?php if ($dataProvider->totalCount === 0): ?>

@@ -80,7 +80,7 @@ class Provider extends ActiveRecord
             ['is_verified','boolean'],
             [['lat', 'lng'], 'number'],
             [['lat', 'lng'], 'default', 'value' => null],
-            [['logoFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['logoFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp, GIF, gif, JPG, JPEG, WEBP'],
         ];
     }
 
@@ -130,6 +130,17 @@ class Provider extends ActiveRecord
             $slug = $base . '-' . $i++;
         }
         return $slug;
+    }
+
+    // ── Image helpers ─────────────────────────────────────────────────────────
+
+    public function getLogoUrl(): string
+    {
+        $baseUrl = rtrim(Yii::$app->params['frontendUrl'] ?? 'http://localhost:8080', '/');
+        if ($this->logo) {
+            return $baseUrl . '/uploads/' . ltrim($this->logo, '/');
+        }
+        return '';
     }
 
     // ── Subscription helpers ──────────────────────────────────────────────────

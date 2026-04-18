@@ -17,8 +17,13 @@ if (Yii::$app->request->isAjax) {
 $user      = Yii::$app->user->identity;
 $isAdmin   = $user && $user->isAdmin();
 $isProvider = $user && $user->isProvider();
-$provider  = $isProvider ? Provider::findOne(['user_id' => $user->id]) : null;
+$provider  = $isProvider ? \common\models\Provider::findOne(['user_id' => $user->id]) : null;
+
 $unreadCount = $user ? $user->getUnreadNotificationsCount() : 0;
+$adminPendingVendors = $isAdmin ? \common\models\Provider::find()->where(['status' => 'pending'])->count() : 0;
+$adminPendingOrders  = $isAdmin ? \common\models\Order::find()->where(['status' => 'pending'])->count() : 0;
+$providerPendingOrders = ($isProvider && $provider) ? \common\models\Order::find()->where(['provider_id' => $provider->id, 'status' => 'pending'])->count() : 0;
+
 $firstName = explode(' ', $user->getFullName())[0];
 $initials  = strtoupper(substr($user->getFullName(), 0, 2));
 
@@ -26,12 +31,12 @@ $navGroups = $isAdmin ? [
     'Overview' => [
         ['Dashboard',      'grid',       '/admin/dashboard'],
         ['Analytics',      'chart-bar',  '/admin/analytics'],
-        ['Nairobi Map',    'map-pin',    '/admin/map',         'Live',    'teal'],
+        ['Map',    'map-pin',    '/admin/map',         null,      null],
     ],
     'Marketplace' => [
-        ['Vendors',        'users',      '/admin/vendors',     '24 new',  'purple'],
+        ['Vendors',        'users',      '/admin/vendors',     $adminPendingVendors > 0 ? $adminPendingVendors . ' new' : null, 'purple'],
         ['Listings',       'box',        '/admin/listings'],
-        ['Orders',         'cart',       '/admin/orders',      '7 pend.', 'amber'],
+        ['Orders',         'cart',       '/admin/orders',      $adminPendingOrders > 0 ? $adminPendingOrders . ' pend.' : null, 'amber'],
         ['Categories',     'tag',        '/admin/categories'],
         ['Reviews',        'star',       '/admin/reviews'],
     ],
@@ -43,7 +48,7 @@ $navGroups = $isAdmin ? [
     ],
     'People' => [
         ['Users',          'user',       '/admin/users'],
-        ['Messages',       'chat',       '/admin/messages',    '3',       'purple'],
+        ['Messages',       'chat',       '/admin/messages',    null,       null],
         ['Notifications',  'bell',       '/admin/notifications', $unreadCount > 0 ? $unreadCount : null, 'amber'],
     ],
     'System' => [
@@ -57,7 +62,7 @@ $navGroups = $isAdmin ? [
     ],
     'My Store' => [
         ['My Listings',    'box',        '/provider/listings'],
-        ['Orders',         'cart',       '/provider/orders',   '2',       'amber'],
+        ['Orders',         'cart',       '/provider/orders',   $providerPendingOrders > 0 ? $providerPendingOrders : null, 'amber'],
         ['Reviews',        'star',       '/provider/reviews'],
     ],
     'Finance' => [
@@ -67,13 +72,21 @@ $navGroups = $isAdmin ? [
     ],
     'Account' => [
         ['Profile',        'user',       '/provider/profile'],
-        ['Messages',       'chat',       '/provider/messages', '1',       'purple'],
+        ['Messages',       'chat',       '/provider/messages', null,       null],
         ['Notifications',  'bell',       '/provider/notifications', $unreadCount > 0 ? $unreadCount : null, 'amber'],
         ['Settings',       'settings',   '/provider/settings'],
     ],
 ];
 
-$currentUrl = Yii::$app->request->url;
+$cId = Yii::$app->controller->id;
+$aId = Yii::$app->controller->action->id;
+$currentRoute = "/$cId/$aId";
+
+$activeRoute = $currentRoute;
+if (str_contains($aId, 'listing')) $activeRoute = "/$cId/listings";
+elseif (str_contains($aId, 'order')) $activeRoute = "/$cId/orders";
+elseif (str_contains($aId, 'vendor')) $activeRoute = "/$cId/vendors";
+elseif (str_contains($aId, 'subscribe') || str_contains($aId, 'subscription')) $activeRoute = "/$cId/subscription" . ($cId === 'admin' ? 's' : '');
 
 $svgPaths = [
     'grid'      => '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
@@ -359,7 +372,7 @@ function hlSvg(array $p, string $n, string $extra = ''): string {
       <?php elseif ($isProvider && $provider): ?>
         <!-- Provider: Show business logo -->
         <?php if ($provider->logo): ?>
-          <img src="<?= Html::encode(rtrim(Yii::$app->params['frontendUrl'], '/') . '/uploads/' . $provider->logo) ?>" alt="<?= Html::encode($provider->business_name) ?>" style="width:40px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">
+          <img src="<?= Html::encode($provider->getLogoUrl()) ?>" alt="<?= Html::encode($provider->business_name) ?>" style="width:40px;height:40px;border-radius:4px;object-fit:cover;flex-shrink:0;" onerror="this.style.display='none'">
         <?php else: ?>
           <div class="hl-logo-mark" style="width:40px;height:40px;font-size:16px;"><?= strtoupper(substr($provider->business_name, 0, 2)) ?></div>
         <?php endif; ?>
@@ -380,7 +393,7 @@ function hlSvg(array $p, string $n, string $extra = ''): string {
           $isExternal = $item[5] ?? false;
           $href       = $isExternal ? Html::encode(Yii::$app->params['frontendUrl'] ?? '/') : Url::to([$route]);
           $extAttr    = $isExternal ? 'target="_blank" rel="noopener"' : '';
-          $isActive   = !$isExternal && (str_starts_with($currentUrl, $route) || $currentUrl === $route);
+          $isActive   = !$isExternal && ($route === $activeRoute || $route === $currentRoute);
         ?>
           <a href="<?= $href ?>" <?= $extAttr ?> class="hl-nav-item <?= $isActive ? 'active' : '' ?>">
             <?= hlSvg($svgPaths, $icon) ?>
@@ -437,16 +450,28 @@ function hlSvg(array $p, string $n, string $extra = ''): string {
         <div class="hl-ib dropdown-trigger" id="hlNotifBtn" title="Notifications" tabindex="0">
           <?= hlSvg($svgPaths, 'bell') ?>
           <?php if ($unreadCount > 0): ?><div class="hl-notif-dot"></div><?php endif; ?>
-          <div class="hl-tb-popup" id="hlNotifPopup" style="width:280px;right:-10px;">
+          <div class="hl-tb-popup" id="hlNotifPopup" style="width:300px;right:-10px;">
             <div style="padding:12px 14px;border-bottom:1px solid var(--border);font-size:12px;font-weight:700;color:var(--text1);display:flex;justify-content:space-between;">
-              Notifications <span style="color:var(--acc);font-size:10px;cursor:pointer;" onclick="markAllBackendNotifsRead()">Mark read</span>
+              Notifications <span style="color:var(--acc);font-size:10px;cursor:pointer;" onclick="">Mark read</span>
             </div>
-            <div style="padding:18px 10px;text-align:center;font-size:11.5px;color:var(--text3);">No new alerts at this time.</div>
+            <div style="max-height:300px;overflow-y:auto;scrollbar-width:thin;">
+                <?php 
+                $latestNotifs = $user ? $user->getNotifications()->limit(5)->all() : [];
+                if (empty($latestNotifs)): ?>
+                    <div style="padding:18px 10px;text-align:center;font-size:11.5px;color:var(--text3);">No new alerts at this time.</div>
+                <?php else: ?>
+                    <?php foreach ($latestNotifs as $notif): ?>
+                        <div style="padding:12px 14px;border-bottom:1px solid var(--border);<?= $notif->is_read ? 'background:var(--bg2);' : 'background:var(--bg);font-weight:600;' ?>">
+                            <div style="font-size:12px;color:var(--text1);margin-bottom:4px;"><?= Html::encode($notif->title) ?></div>
+                            <div style="font-size:11px;color:var(--text2);line-height:1.4;margin-bottom:6px;"><?= Html::encode($notif->message) ?></div>
+                            <div style="font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;"><?= Yii::$app->formatter->asRelativeTime($notif->created_at) ?></div>
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
             <div style="border-top:1px solid var(--border);padding:10px;">
               <a href="<?= Url::to([$isAdmin ? '/admin/notifications' : '/provider/notifications']) ?>" style="display:block;text-align:center;font-size:11.5px;color:var(--acc);font-weight:600;text-decoration:none;">View all notifications</a>
             </div>
-          </div>
-        </div>
           </div>
         </div>
         <div class="hl-tb-user" id="hlTbUser">

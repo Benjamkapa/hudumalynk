@@ -175,7 +175,7 @@ $this->title = 'Business Portal Login';
                 onerror="this.outerHTML='<i class=\" bi bi-shield-lock-fill\"></i>
         </div>
 
-        <h1 class="auth-title">Provider &amp; Admin Portal</h1>
+        <h1 class="auth-title">Provider Portal</h1>
         <p class="auth-subtitle">Sign in to manage listings, orders, and operations.</p>
 
         <?php $form = ActiveForm::begin(['id' => 'login-form', 'enableClientValidation' => true]); ?>

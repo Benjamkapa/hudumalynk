@@ -7,8 +7,8 @@ return [
     'supportEmail'    => 'support@hudumalynk.com',
     'senderEmail'     => 'noreply@hudumalynk.com',
     'senderName'      => 'HudumaLynk',
-    'frontendUrl'     => $_ENV['FRONTEND_URL'] ?? 'http://hudumalynk.local',
-    'backendUrl'      => $_ENV['BACKEND_URL'] ?? 'http://admin.hudumalynk.local',
+    'frontendUrl'     => $_ENV['FRONTEND_URL'] ?? 'http://localhost:8080',
+    'backendUrl'      => $_ENV['BACKEND_URL'] ?? 'http://localhost:8081',
 
     // Currency
     'defaultCurrency' => 'KES',
@@ -38,6 +38,6 @@ return [
 
     // Upload limits
     'maxUploadSize'    => 5242880,  // 5 MB
-    'allowedImageTypes' => ['jpg', 'jpeg', 'png', 'webp'],
+    'allowedImageTypes' => ['jpg', 'jpeg', 'png', 'webp', 'JPG', 'JPEG', 'PNG', 'WEBP', 'gif', 'GIF'],
     'maxImagesPerListing' => 5,
 ];

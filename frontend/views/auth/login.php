@@ -67,7 +67,7 @@ use yii\widgets\ActiveForm;
       Don't have an account?&nbsp;
       <a href="<?= Url::to(['/register']) ?>">Create one free</a>
       &nbsp;|&nbsp;
-      <a href="<?= Yii::$app->params['backendUrl'] . '/login' ?>">Provider or admin portal</a>
+      <a href="<?= Yii::$app->params['backendUrl'] . '/login' ?>">Provider portal</a>
     </div>
   </div>
 </div>

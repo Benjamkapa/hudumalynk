@@ -85,6 +85,7 @@ return [
                 'account/notifications'         => 'account/notifications',
                 // Ajax / utility
                 'api/currency-rate'             => 'api/currency-rate',
+                'api/provider/<id:\d+>'          => 'provider/api',
             ],
         ],
     ],

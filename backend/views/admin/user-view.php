@@ -11,6 +11,7 @@ $colors = ['#6C5CE7','#3B82F6','#00B894','#E17055','#FDCB6E','#A29BFE'];
 $roleCols = ['customer' => '#3B82F6', 'provider' => '#00B894', 'admin' => '#EF4444'];
 $roleCol  = $roleCols[$user->role ?? 'customer'] ?? '#3B82F6';
 $init     = strtoupper(substr($user->first_name ?? 'U', 0, 1) . substr($user->last_name ?? '', 0, 1));
+$lastActivityAt = $user->hasAttribute('last_login_at') ? $user->getAttribute('last_login_at') : ($user->updated_at ?? null);
 ?>
 <style>
 .uv-grid{display:grid;grid-template-columns:280px 1fr;gap:14px;align-items:start;}
@@ -32,7 +33,7 @@ $init     = strtoupper(substr($user->first_name ?? 'U', 0, 1) . substr($user->la
         <span style="display:inline-block;padding:3px 9px;border-radius:20px;font-size:10px;font-weight:700;background:rgba(<?= $roleCol ?>,0.12);color:<?= $roleCol ?>;"><?= ucfirst($user->role ?? 'customer') ?></span>
     </div>
     <div style="display:flex;gap:8px;">
-        <a href="<?= Url::to(['/admin/user-edit', 'id' => $user->id]) ?>" class="hl-btn-g">
+        <a href="<?= Url::to(['/admin/user-edit', 'id' => $user->id]) ?>" class="hl-btn-g offcanvas-link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit
         </a>
@@ -60,7 +61,7 @@ $init     = strtoupper(substr($user->first_name ?? 'U', 0, 1) . substr($user->la
                 <div class="uv-row"><span class="lbl">Phone</span><span class="val"><?= Html::encode($user->phone ?? '—') ?></span></div>
                 <div class="uv-row"><span class="lbl">Role</span><span class="val"><?= ucfirst($user->role ?? 'customer') ?></span></div>
                 <div class="uv-row"><span class="lbl">Joined</span><span class="val"><?= date('d M Y', strtotime($user->created_at ?? 'now')) ?></span></div>
-                <div class="uv-row"><span class="lbl">Last login</span><span class="val"><?= $user->last_login_at ? date('d M Y', strtotime($user->last_login_at)) : 'Never' ?></span></div>
+                <div class="uv-row"><span class="lbl">Last activity</span><span class="val"><?= $lastActivityAt ? date('d M Y', strtotime($lastActivityAt)) : 'Never' ?></span></div>
             </div>
         </div>
 
@@ -72,7 +73,7 @@ $init     = strtoupper(substr($user->first_name ?? 'U', 0, 1) . substr($user->la
                 <div style="font-size:11.5px;color:var(--text3);margin-bottom:4px;"><?= Html::encode($provider->city ?? '') ?> · Rating: <?= number_format($provider->rating, 1) ?> ★</div>
                 <span style="display:inline-block;padding:2px 8px;border-radius:20px;font-size:9.5px;font-weight:700;background:var(--teal-pale);color:var(--teal);"><?= ucfirst($provider->status) ?></span>
                 <div style="margin-top:10px;">
-                    <a href="<?= Url::to(['/admin/vendor-view', 'id' => $provider->id]) ?>" class="hl-btn-g" style="font-size:11px;padding:6px;justify-content:center;display:flex;">View vendor profile</a>
+                    <a href="<?= Url::to(['/admin/vendor-view', 'id' => $provider->id]) ?>" class="hl-btn-g offcanvas-link" style="font-size:11px;padding:6px;justify-content:center;display:flex;">View vendor profile</a>
                 </div>
             </div>
         </div>
@@ -101,7 +102,7 @@ $init     = strtoupper(substr($user->first_name ?? 'U', 0, 1) . substr($user->la
                     <td style="font-weight:700;font-size:12px;">KES <?= number_format($o->total_amount) ?></td>
                     <td><span class="hl-badge <?= $stCls ?>"><?= ucfirst(str_replace('_',' ',$o->status)) ?></span></td>
                     <td style="font-size:11px;color:var(--text3);"><?= date('d M Y', strtotime($o->created_at)) ?></td>
-                    <td><a href="<?= Url::to(['/admin/order-view', 'id' => $o->id]) ?>" class="hl-btn-g" style="padding:4px 9px;font-size:11px;">View</a></td>
+                    <td><a href="<?= Url::to(['/admin/order-view', 'id' => $o->id]) ?>" class="hl-btn-g offcanvas-link" style="padding:4px 9px;font-size:11px;">View</a></td>
                 </tr>
                 <?php endforeach; ?>
                 </tbody>
