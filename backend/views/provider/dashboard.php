@@ -21,7 +21,6 @@ $this->title = 'Dashboard';
 .hero-card .hc-link { font-size: 12px; font-weight: 600; color: var(--acc); text-decoration: none; }
 .hero-card .hc-link:hover { text-decoration: underline; }
 .mid-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 12px; margin-bottom: 16px; }
-#earningsChart { width: 100%; height: 200px; }
 .order-item { display: flex; align-items: center; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--border); }
 .order-item:last-child { border-bottom: none; }
 .order-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: #fff; flex-shrink: 0; }
@@ -49,16 +48,36 @@ $this->title = 'Dashboard';
 </div>
 
 <div class="hero-cards">
-    <div class="hero-card"><div class="hc-label">Total Earnings</div><div class="hc-value">KSh <?= number_format($stats['balance'], 0) ?></div><div class="hc-sub">Paid orders</div><a class="hc-link" href="<?= Url::to(['/provider/orders']) ?>">View all →</a></div>
-    <div class="hero-card"><div class="hc-label">Active Listings</div><div class="hc-value"><?= $stats['active_listings'] ?></div><div class="hc-sub">Published</div><a class="hc-link" href="<?= Url::to(['/provider/listings']) ?>">Manage →</a></div>
-    <div class="hero-card"><div class="hc-label">Total Orders</div><div class="hc-value"><?= $stats['total_orders'] ?></div><div class="hc-sub">All time</div><a class="hc-link" href="<?= Url::to(['/provider/orders']) ?>">View →</a></div>
-    <div class="hero-card"><div class="hc-label">Average Rating</div><div class="hc-value">★ <?= number_format($stats['avg_rating'], 1) ?></div><div class="hc-sub">Feedback</div><a class="hc-link" href="<?= Url::to(['/provider/reviews']) ?>">Reviews →</a></div>
+    <div class="hero-card">
+        <div class="hc-label">Total Earnings</div>
+        <div class="hc-value" id="hc-balance" data-value="<?= $stats['balance'] ?>">KSh 0</div>
+        <div class="hc-sub">Paid orders</div>
+        <a class="hc-link" href="<?= Url::to(['/provider/orders']) ?>">View all →</a>
+    </div>
+    <div class="hero-card">
+        <div class="hc-label">Active Listings</div>
+        <div class="hc-value" id="hc-listings" data-value="<?= $stats['active_listings'] ?>">0</div>
+        <div class="hc-sub">Published</div>
+        <a class="hc-link" href="<?= Url::to(['/provider/listings']) ?>">Manage →</a>
+    </div>
+    <div class="hero-card">
+        <div class="hc-label">Total Orders</div>
+        <div class="hc-value" id="hc-orders" data-value="<?= $stats['total_orders'] ?>">0</div>
+        <div class="hc-sub">All time</div>
+        <a class="hc-link" href="<?= Url::to(['/provider/orders']) ?>">View →</a>
+    </div>
+    <div class="hero-card">
+        <div class="hc-label">Average Rating</div>
+        <div class="hc-value" id="hc-rating" data-value="<?= number_format($stats['avg_rating'], 1) ?>">★ 0.0</div>
+        <div class="hc-sub">Feedback</div>
+        <a class="hc-link" href="<?= Url::to(['/provider/reviews']) ?>">Reviews →</a>
+    </div>
 </div>
 
 <div class="mid-row">
     <div class="hl-card">
         <div class="hl-card-head"><span class="hl-card-title">Earnings (Last 6 Months)</span></div>
-        <div class="hl-card-body"><canvas id="earningsChart"></canvas></div>
+        <div class="hl-card-body"><div id="earningsChart"></div></div>
     </div>
     <div class="hl-card">
         <div class="hl-card-head"><span class="hl-card-title">Recent Orders</span></div>
@@ -67,7 +86,10 @@ $this->title = 'Dashboard';
                 <?php foreach ($recentOrders as $order): ?>
                     <div class="order-item">
                         <div class="order-avatar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"><?= strtoupper(substr($order->user->getFullName(), 0, 1)) ?></div>
-                        <div><div class="order-name"><?= Html::encode($order->user->getFullName()) ?></div><div class="order-details">KSh <?= number_format($order->total_amount, 0) ?> • <?= date('M d', strtotime($order->created_at)) ?></div></div>
+                        <div>
+                            <div class="order-name"><?= Html::encode($order->user->getFullName()) ?></div>
+                            <div class="order-details">KSh <?= number_format($order->total_amount, 0) ?> • <?= date('M d', strtotime($order->created_at)) ?></div>
+                        </div>
                         <div class="order-status" style="background: rgba(34,197,94,.1); color: #22c55e;"><?= ucfirst(str_replace('_', ' ', $order->status)) ?></div>
                     </div>
                 <?php endforeach; ?>
@@ -101,14 +123,140 @@ $this->title = 'Dashboard';
     <div class="hl-card">
         <div class="hl-card-head"><span class="hl-card-title">Quick Stats</span></div>
         <div class="hl-card-body" style="padding: 8px 16px;">
-            <div class="history-item"><span class="history-label">This Month</span><span class="history-value">KSh <?= number_format($trends['earnings'][5] ?? 0, 0) ?></span></div>
-            <div class="history-item"><span class="history-label">Pending</span><span class="history-value"><?php echo \common\models\Order::find()->where(['provider_id' => $provider->id, 'status' => 'pending'])->count(); ?></span></div>
-            <div class="history-item"><span class="history-label">Completed</span><span class="history-value"><?php echo \common\models\Order::find()->where(['provider_id' => $provider->id, 'status' => 'completed'])->count(); ?></span></div>
-            <div class="history-item"><span class="history-label">Subscription</span><span class="history-value"><?php echo \common\models\Subscription::find()->where(['provider_id' => $provider->id, 'status' => 'active'])->one() ? 'Active' : 'Inactive'; ?></span></div>
+            <div class="history-item">
+                <span class="history-label">This Month</span>
+                <span class="history-value" id="qs-month" data-value="<?= $trends['earnings'][5] ?? 0 ?>">KSh 0</span>
+            </div>
+            <div class="history-item">
+                <span class="history-label">Pending</span>
+                <span class="history-value" id="qs-pending" data-value="<?= \common\models\Order::find()->where(['provider_id' => $provider->id, 'status' => 'pending'])->count() ?>">0</span>
+            </div>
+            <div class="history-item">
+                <span class="history-label">Completed</span>
+                <span class="history-value" id="qs-completed" data-value="<?= \common\models\Order::find()->where(['provider_id' => $provider->id, 'status' => 'completed'])->count() ?>">0</span>
+            </div>
+            <div class="history-item">
+                <span class="history-label">Subscription</span>
+                <span class="history-value"><?= \common\models\Subscription::find()->where(['provider_id' => $provider->id, 'status' => 'active'])->one() ? 'Active' : 'Inactive' ?></span>
+            </div>
         </div>
     </div>
 </div>
 
-<?php $this->registerJsFile('https://cdn.jsdelivr.net/npm/chart.js'); ?>
-<?php $this->registerJs("setTimeout(function(){const ctx=document.getElementById('earningsChart');if(ctx&&typeof Chart!=='undefined'){new Chart(ctx,{type:'line',data:{labels:".json_encode($trends['months']).",datasets:[{label:'Earnings (KSh)',data:".json_encode($trends['earnings']).",borderColor:'#6C5CE7',backgroundColor:'rgba(108, 92, 231, 0.1)',tension:0.4,fill:true,pointRadius:4,pointBackgroundColor:'#6C5CE7'}]},options:{responsive:true,maintainAspectRatio:false,scales:{y:{beginAtZero:true,ticks:{callback:function(v){return'KSh '+v.toLocaleString()}}}},plugins:{legend:{display:false}}}});}},200);", \yii\web\View::POS_READY); ?>
+<?php $this->registerJsFile('https://cdn.jsdelivr.net/npm/apexcharts'); ?>
 
+<?php $this->registerJs("
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ── Utility: ease-out cubic count-up ──────────────────────────────────────
+    function countUp(el, target, duration, format) {
+        var startTime = null;
+        function step(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var ease     = 1 - Math.pow(1 - progress, 3);
+            el.textContent = format(target * ease);
+            if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+    }
+
+    // ── Hero cards ────────────────────────────────────────────────────────────
+    var balanceEl = document.getElementById('hc-balance');
+    if (balanceEl) countUp(balanceEl, parseFloat(balanceEl.dataset.value) || 0, 1400, function(v) {
+        return 'KSh ' + Math.round(v).toLocaleString('en-KE');
+    });
+
+    var listingsEl = document.getElementById('hc-listings');
+    if (listingsEl) countUp(listingsEl, parseInt(listingsEl.dataset.value) || 0, 1000, function(v) {
+        return Math.round(v).toString();
+    });
+
+    var ordersEl = document.getElementById('hc-orders');
+    if (ordersEl) countUp(ordersEl, parseInt(ordersEl.dataset.value) || 0, 1000, function(v) {
+        return Math.round(v).toString();
+    });
+
+    var ratingEl = document.getElementById('hc-rating');
+    if (ratingEl) countUp(ratingEl, parseFloat(ratingEl.dataset.value) || 0, 1200, function(v) {
+        return '\u2605 ' + v.toFixed(1);
+    });
+
+    // ── Quick stats ───────────────────────────────────────────────────────────
+    var monthEl = document.getElementById('qs-month');
+    if (monthEl) countUp(monthEl, parseFloat(monthEl.dataset.value) || 0, 1300, function(v) {
+        return 'KSh ' + Math.round(v).toLocaleString('en-KE');
+    });
+
+    var pendingEl = document.getElementById('qs-pending');
+    if (pendingEl) countUp(pendingEl, parseInt(pendingEl.dataset.value) || 0, 900, function(v) {
+        return Math.round(v).toString();
+    });
+
+    var completedEl = document.getElementById('qs-completed');
+    if (completedEl) countUp(completedEl, parseInt(completedEl.dataset.value) || 0, 1000, function(v) {
+        return Math.round(v).toString();
+    });
+
+    // ── Earnings chart — ApexCharts (mirrors analytics page setup) ────────────
+    var isDark    = document.documentElement.getAttribute('data-hl-t') === 'dark';
+    var gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
+    var tickColor = isDark ? '#55556A' : '#9898B8';
+
+    new ApexCharts(document.querySelector('#earningsChart'), {
+        series: [{
+            name: 'Earnings (KSh)',
+            data: " . json_encode(array_values($trends['earnings'])) . "
+        }],
+        chart: {
+            type:       'area',
+            height:     220,
+            toolbar:    { show: false },
+            background: 'transparent',
+            zoom:       { enabled: false },
+            animations: {
+                enabled:          true,
+                easing:           'easeinout',
+                speed:            900,
+                animateGradually: { enabled: true, delay: 150 },
+                dynamicAnimation: { enabled: true, speed: 450 }
+            }
+        },
+        colors:     ['#6C5CE7'],
+        stroke:     { curve: 'smooth', width: 2.5 },
+        fill: {
+            type:     'gradient',
+            gradient: { opacityFrom: 0.3, opacityTo: 0.0 }
+        },
+        dataLabels: { enabled: false },
+        grid: {
+            borderColor:     gridColor,
+            strokeDashArray: 4
+        },
+        xaxis: {
+            categories: " . json_encode(array_values($trends['months'])) . ",
+            axisBorder: { show: false },
+            axisTicks:  { show: false },
+            labels:     { style: { colors: tickColor, fontSize: '10px' } }
+        },
+        yaxis: {
+            labels: {
+                style:     { colors: tickColor, fontSize: '10px' },
+                formatter: function(v) { return 'KSh ' + v.toLocaleString(); }
+            }
+        },
+        tooltip: {
+            theme: isDark ? 'dark' : 'light',
+            y: { formatter: function(v) { return 'KSh ' + v.toLocaleString(); } }
+        },
+        markers: {
+            size:        4,
+            colors:      ['#6C5CE7'],
+            strokeWidth: 0
+        },
+        legend: { show: false },
+        theme:  { mode: isDark ? 'dark' : 'light' }
+    }).render();
+
+});
+", \yii\web\View::POS_END); ?>
