@@ -70,7 +70,7 @@ use yii\widgets\LinkPager;
           <div>
             <h1 style="font-size:clamp(1.6rem, 3vw, 2.2rem);margin:0 0 0.35rem;">Marketplace</h1>
             <p style="color:var(--text-muted);font-size:0.875rem;margin:0;">
-            <?= number_format($total) ?> result<?= $total !== 1 ? 's' : '' ?> found
+            More than <?= number_format($total) ?> Service<?= $total !== 1 ? 's' : '' ?> and Product<?= $total !== 1 ? 's' : '' ?> Available for You
             <?= $currentQ ? ' for "<strong>' . Html::encode($currentQ) . '</strong>"' : '' ?>
             </p>
           </div>
